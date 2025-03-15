@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		716E84872D8529CD00386B68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 716E84672D8529C900386B68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 716E846E2D8529C900386B68;
+			remoteInfo = "My PubMed Research Assistant";
+		};
+		716E84912D8529CD00386B68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 716E84672D8529C900386B68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 716E846E2D8529C900386B68;
+			remoteInfo = "My PubMed Research Assistant";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		716E846F2D8529C900386B68 /* My PubMed Research Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My PubMed Research Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		716E84862D8529CD00386B68 /* My PubMed Research AssistantTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My PubMed Research AssistantTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		716E84902D8529CD00386B68 /* My PubMed Research AssistantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My PubMed Research AssistantUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		716E84982D8529CD00386B68 /* Exceptions for "My PubMed Research Assistant" folder in "My PubMed Research Assistant" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 716E846E2D8529C900386B68 /* My PubMed Research Assistant */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		716E84712D8529C900386B68 /* My PubMed Research Assistant */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				716E84982D8529CD00386B68 /* Exceptions for "My PubMed Research Assistant" folder in "My PubMed Research Assistant" target */,
+			);
+			path = "My PubMed Research Assistant";
+			sourceTree = "<group>";
+		};
+		716E84892D8529CD00386B68 /* My PubMed Research AssistantTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "My PubMed Research AssistantTests";
+			sourceTree = "<group>";
+		};
+		716E84932D8529CD00386B68 /* My PubMed Research AssistantUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "My PubMed Research AssistantUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		716E846C2D8529C900386B68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		716E84832D8529CD00386B68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		716E848D2D8529CD00386B68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		716E84662D8529C900386B68 = {
+			isa = PBXGroup;
+			children = (
+				716E84712D8529C900386B68 /* My PubMed Research Assistant */,
+				716E84892D8529CD00386B68 /* My PubMed Research AssistantTests */,
+				716E84932D8529CD00386B68 /* My PubMed Research AssistantUITests */,
+				716E84702D8529C900386B68 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		716E84702D8529C900386B68 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				716E846F2D8529C900386B68 /* My PubMed Research Assistant.app */,
+				716E84862D8529CD00386B68 /* My PubMed Research AssistantTests.xctest */,
+				716E84902D8529CD00386B68 /* My PubMed Research AssistantUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		716E846E2D8529C900386B68 /* My PubMed Research Assistant */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 716E84992D8529CD00386B68 /* Build configuration list for PBXNativeTarget "My PubMed Research Assistant" */;
+			buildPhases = (
+				716E846B2D8529C900386B68 /* Sources */,
+				716E846C2D8529C900386B68 /* Frameworks */,
+				716E846D2D8529C900386B68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				716E84712D8529C900386B68 /* My PubMed Research Assistant */,
+			);
+			name = "My PubMed Research Assistant";
+			packageProductDependencies = (
+			);
+			productName = "My PubMed Research Assistant";
+			productReference = 716E846F2D8529C900386B68 /* My PubMed Research Assistant.app */;
+			productType = "com.apple.product-type.application";
+		};
+		716E84852D8529CD00386B68 /* My PubMed Research AssistantTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 716E849E2D8529CD00386B68 /* Build configuration list for PBXNativeTarget "My PubMed Research AssistantTests" */;
+			buildPhases = (
+				716E84822D8529CD00386B68 /* Sources */,
+				716E84832D8529CD00386B68 /* Frameworks */,
+				716E84842D8529CD00386B68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				716E84882D8529CD00386B68 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				716E84892D8529CD00386B68 /* My PubMed Research AssistantTests */,
+			);
+			name = "My PubMed Research AssistantTests";
+			packageProductDependencies = (
+			);
+			productName = "My PubMed Research AssistantTests";
+			productReference = 716E84862D8529CD00386B68 /* My PubMed Research AssistantTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		716E848F2D8529CD00386B68 /* My PubMed Research AssistantUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 716E84A12D8529CD00386B68 /* Build configuration list for PBXNativeTarget "My PubMed Research AssistantUITests" */;
+			buildPhases = (
+				716E848C2D8529CD00386B68 /* Sources */,
+				716E848D2D8529CD00386B68 /* Frameworks */,
+				716E848E2D8529CD00386B68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				716E84922D8529CD00386B68 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				716E84932D8529CD00386B68 /* My PubMed Research AssistantUITests */,
+			);
+			name = "My PubMed Research AssistantUITests";
+			packageProductDependencies = (
+			);
+			productName = "My PubMed Research AssistantUITests";
+			productReference = 716E84902D8529CD00386B68 /* My PubMed Research AssistantUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		716E84672D8529C900386B68 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					716E846E2D8529C900386B68 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					716E84852D8529CD00386B68 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 716E846E2D8529C900386B68;
+					};
+					716E848F2D8529CD00386B68 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 716E846E2D8529C900386B68;
+					};
+				};
+			};
+			buildConfigurationList = 716E846A2D8529C900386B68 /* Build configuration list for PBXProject "My PubMed Research Assistant" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 716E84662D8529C900386B68;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 716E84702D8529C900386B68 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				716E846E2D8529C900386B68 /* My PubMed Research Assistant */,
+				716E84852D8529CD00386B68 /* My PubMed Research AssistantTests */,
+				716E848F2D8529CD00386B68 /* My PubMed Research AssistantUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		716E846D2D8529C900386B68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		716E84842D8529CD00386B68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		716E848E2D8529CD00386B68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		716E846B2D8529C900386B68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		716E84822D8529CD00386B68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		716E848C2D8529CD00386B68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		716E84882D8529CD00386B68 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 716E846E2D8529C900386B68 /* My PubMed Research Assistant */;
+			targetProxy = 716E84872D8529CD00386B68 /* PBXContainerItemProxy */;
+		};
+		716E84922D8529CD00386B68 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 716E846E2D8529C900386B68 /* My PubMed Research Assistant */;
+			targetProxy = 716E84912D8529CD00386B68 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		716E849A2D8529CD00386B68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "My PubMed Research Assistant/My_PubMed_Research_Assistant.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"My PubMed Research Assistant/Preview Content\"";
+				DEVELOPMENT_TEAM = SBRT38UD7A;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "My PubMed Research Assistant/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clean-kitty.PubMed.My-PubMed-Research-Assistant";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		716E849B2D8529CD00386B68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "My PubMed Research Assistant/My_PubMed_Research_Assistant.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"My PubMed Research Assistant/Preview Content\"";
+				DEVELOPMENT_TEAM = SBRT38UD7A;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "My PubMed Research Assistant/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clean-kitty.PubMed.My-PubMed-Research-Assistant";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		716E849C2D8529CD00386B68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		716E849D2D8529CD00386B68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		716E849F2D8529CD00386B68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SBRT38UD7A;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clean-kitty.PubMed.My-PubMed-Research-AssistantTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/My PubMed Research Assistant.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/My PubMed Research Assistant";
+			};
+			name = Debug;
+		};
+		716E84A02D8529CD00386B68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SBRT38UD7A;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clean-kitty.PubMed.My-PubMed-Research-AssistantTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/My PubMed Research Assistant.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/My PubMed Research Assistant";
+			};
+			name = Release;
+		};
+		716E84A22D8529CD00386B68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SBRT38UD7A;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clean-kitty.PubMed.My-PubMed-Research-AssistantUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "My PubMed Research Assistant";
+			};
+			name = Debug;
+		};
+		716E84A32D8529CD00386B68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SBRT38UD7A;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clean-kitty.PubMed.My-PubMed-Research-AssistantUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "My PubMed Research Assistant";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		716E846A2D8529C900386B68 /* Build configuration list for PBXProject "My PubMed Research Assistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				716E849C2D8529CD00386B68 /* Debug */,
+				716E849D2D8529CD00386B68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		716E84992D8529CD00386B68 /* Build configuration list for PBXNativeTarget "My PubMed Research Assistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				716E849A2D8529CD00386B68 /* Debug */,
+				716E849B2D8529CD00386B68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		716E849E2D8529CD00386B68 /* Build configuration list for PBXNativeTarget "My PubMed Research AssistantTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				716E849F2D8529CD00386B68 /* Debug */,
+				716E84A02D8529CD00386B68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		716E84A12D8529CD00386B68 /* Build configuration list for PBXNativeTarget "My PubMed Research AssistantUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				716E84A22D8529CD00386B68 /* Debug */,
+				716E84A32D8529CD00386B68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 716E84672D8529C900386B68 /* Project object */;
+}
