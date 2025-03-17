@@ -2,23 +2,20 @@
 //  My PubMed Research Assistant
 //
 //  Description: Model for handling detailed PubMed article data from API response.
-//  Version: 0.1.4-alpha (Fixed Decodable Conformance, Author Handling)
+//  Version: 0.1.5-alpha (Fixed Decodable Conformance, Author Handling)
+
+import Foundation
 
 import Foundation
 
 struct PubMedArticleDetails: Codable {
     let result: [String: PubMedArticleDetail]
-
-    enum CodingKeys: String, CodingKey {
-        case result
-    }
 }
 
 struct PubMedArticleDetail: Codable {
-    let uid: String
+    let pmid: String  // ✅ Fixed from uid to pmid
     let pubdate: String?
-    let epubdate: String?
-    let source: String?
+    let journal: String?  // ✅ Renamed from source to journal
     let title: String
     let volume: String?
     let issue: String?
@@ -28,39 +25,20 @@ struct PubMedArticleDetail: Codable {
     let pmcid: String?
 
     enum CodingKeys: String, CodingKey {
-        case uid, pubdate, epubdate, source, title, volume, issue, pages, authors, articleids
+        case pmid = "uid"  // ✅ Fixed incorrect mapping
+        case pubdate
+        case journal = "source"  // ✅ Fixed incorrect mapping
+        case title
+        case volume
+        case issue
+        case pages
+        case authors
+        case doi
+        case pmcid
     }
 
     struct Author: Codable {
         let name: String?
-    }
-
-    struct ArticleID: Codable {
-        let idtype: String
-        let value: String
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        uid = try container.decode(String.self, forKey: .uid)
-        pubdate = try? container.decode(String.self, forKey: .pubdate)
-        epubdate = try? container.decode(String.self, forKey: .epubdate)
-        source = try? container.decode(String.self, forKey: .source)
-        title = try container.decode(String.self, forKey: .title)
-        volume = try? container.decode(String.self, forKey: .volume)
-        issue = try? container.decode(String.self, forKey: .issue)
-        pages = try? container.decode(String.self, forKey: .pages)
-        authors = try? container.decode([Author].self, forKey: .authors)
-
-        // ✅ Decode article IDs and extract DOI & PMCID
-        if let articleIDs = try? container.decode([ArticleID].self, forKey: .articleids) {
-            doi = articleIDs.first { $0.idtype == "doi" }?.value
-            pmcid = articleIDs.first { $0.idtype == "pmcid" }?.value
-        } else {
-            doi = nil
-            pmcid = nil
-        }
     }
 }
 
