@@ -23,6 +23,7 @@
 		71BAE3802D86B39800FF1EB9 /* PubMedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE37F2D86B39800FF1EB9 /* PubMedService.swift */; };
 		71BAE3822D86B3B700FF1EB9 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3812D86B3B700FF1EB9 /* SearchView.swift */; };
 		71BAE3842D86B3D300FF1EB9 /* StoredArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3832D86B3D300FF1EB9 /* StoredArticle.swift */; };
+		71BB9CA62D8878FE00B1DF52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		71BAE37F2D86B39800FF1EB9 /* PubMedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubMedService.swift; sourceTree = "<group>"; };
 		71BAE3812D86B3B700FF1EB9 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		71BAE3832D86B3D300FF1EB9 /* StoredArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredArticle.swift; sourceTree = "<group>"; };
+		71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -129,6 +131,7 @@
 				71BAE37F2D86B39800FF1EB9 /* PubMedService.swift */,
 				7123B0422D87B0B500C3FA2A /* SearchBar.swift */,
 				71BAE3812D86B3B700FF1EB9 /* SearchView.swift */,
+				71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */,
 				71BAE3832D86B3D300FF1EB9 /* StoredArticle.swift */,
 				716E84712D8529C900386B68 /* My PubMed Research Assistant */,
 				716E84892D8529CD00386B68 /* My PubMed Research AssistantTests */,
@@ -297,6 +300,7 @@
 				71BAE37A2D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */,
 				71BAE37C2D86B32C00FF1EB9 /* PubMedArticle.swift in Sources */,
 				71BAE3802D86B39800FF1EB9 /* PubMedService.swift in Sources */,
+				71BB9CA62D8878FE00B1DF52 /* AppDelegate.swift in Sources */,
 				7123B0432D87B0B500C3FA2A /* SearchBar.swift in Sources */,
 				7123B0452D87B28500C3FA2A /* PubMedSearchResult.swift in Sources */,
 				71BAE3762D86B1B600FF1EB9 /* ContentView.swift in Sources */,
