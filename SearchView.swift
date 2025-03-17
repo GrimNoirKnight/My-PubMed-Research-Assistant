@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.4.4-alpha (Fixed Keyboard Constraint Conflicts)
+//  Version: 0.5.0-alpha (Final Fix for UIKit Keyboard Constraints)
 
 import SwiftUI
 
@@ -29,7 +29,9 @@ struct SearchView: View {
                 .keyboardType(.default)
                 .onAppear {
                     isSearchFieldFocused = false
-                    suppressKeyboardConflicts() // ✅ Eliminates UIKit conflicts
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        suppressKeyboardConflicts() // ✅ Stronger suppression
+                    }
                 }
                 .onDisappear {
                     dismissKeyboard()
@@ -85,14 +87,16 @@ struct SearchView: View {
         }
     }
 
-    /// ✅ Completely suppresses keyboard conflicts by removing the input assistant view
+    /// ✅ Completely suppresses keyboard conflicts by force-removing UIKit constraints
     private func suppressKeyboardConflicts() {
         DispatchQueue.main.async {
             for window in UIApplication.shared.windows {
                 if let rootView = window.rootViewController?.view {
-                    rootView.subviews.forEach { subview in
-                        if subview.description.contains("InputAccessoryView") {
-                            subview.removeFromSuperview()
+                    for subview in rootView.subviews {
+                        if subview.description.contains("InputAssistantView") ||
+                            subview.description.contains("InputAccessoryView") ||
+                            subview.description.contains("UIRemoteKeyboardPlaceholderView") {
+                            subview.removeFromSuperview() // ✅ Force remove UIKit views
                         }
                     }
                 }
