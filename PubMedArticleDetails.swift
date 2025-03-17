@@ -1,10 +1,8 @@
 //  PubMedArticleDetails.swift
 //  My PubMed Research Assistant
 //
-//  Description: Model for handling detailed PubMed article data from API response.
-//  Version: 0.1.8-alpha (Fixed Decodable Conformance, Author Handling)
-
-import Foundation
+//  Description: Data model for handling detailed PubMed article responses.
+//  Version: 0.3.1-alpha (Fixed Decodable Conformance)
 
 import Foundation
 
@@ -23,18 +21,14 @@ struct PubMedArticleDetail: Codable {
     let authors: [Author]?
     let doi: String?
     let pmcid: String?
-    
+    let abstract: String?
+    let webLink: String?
+
+    enum CodingKeys: String, CodingKey {
+        case pmid, pubdate, journal, title, volume, issue, pages, authors, doi, pmcid, abstract, webLink
+    }
+
     struct Author: Codable {
         let name: String?
     }
-}
-// ✅ Define `ArticleID` struct to decode DOI, PMCID
-struct ArticleID: Codable {
-    let idtype: String
-    let value: String
-}
-
-// ✅ Define `Author` struct correctly
-struct Author: Codable {
-    let name: String?
 }
