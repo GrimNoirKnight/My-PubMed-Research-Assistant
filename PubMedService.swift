@@ -2,48 +2,61 @@
 //  My PubMed Research Assistant
 //
 //  Description: Service handling API calls to fetch PubMed articles.
-//  Version: 0.4.5-alpha (Improved Error Handling, Async/Await, JSON Decoding)
+//  Version: 0.4.6-alpha (Improved Error Handling, Async/Await, JSON Decoding)
 
 import Foundation
 
-class PubMedService {
-    static let shared = PubMedService()
-    private let baseURL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+struct PubMedService {
+    let baseURL = "https://api.ncbi.nlm.nih.gov/lit/ctxp/v1/pubmed/?format=json&id="
+    
+    func searchArticlesAsync(query: String) async throws -> [PubMedArticle] {
+        guard !query.isEmpty else { return [] }
 
-    private func fetchArticleDetails(articleID: String) async throws -> PubMedArticleDetail {
-        let urlString = "\(baseURL)esummary.fcgi?db=pubmed&id=\(articleID)&retmode=json"
-
-        guard let url = URL(string: urlString) else {
+        let endpoint = baseURL + query
+        guard let url = URL(string: endpoint) else {
             throw URLError(.badURL)
         }
 
-        let (data, response) = try await URLSession.shared.data(from: url)
-
-        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            throw URLError(.badServerResponse)
-        }
-
-        // ✅ Print JSON response for debugging
-        if let jsonString = String(data: data, encoding: .utf8) {
-            print("📜 API Response for PMID \(articleID):\n\(jsonString)")
-        }
+        let (data, _) = try await URLSession.shared.data(from: url)
 
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
 
-        do {
-            let response = try decoder.decode(PubMedArticleDetails.self, from: data)
-            
-            // ✅ Extract article using dynamic key
-            guard let article = response.result[articleID] else {
-                throw NSError(domain: "PubMedService", code: 404, userInfo: [NSLocalizedDescriptionKey: "No article found for PMID \(articleID)"])
-            }
+        let response = try decoder.decode(PubMedArticleDetails.self, from: data)
 
-            return article
-        } catch {
-            throw NSError(domain: "PubMedService", code: 500, userInfo: [NSLocalizedDescriptionKey: "JSON Decoding failed: \(error.localizedDescription)"])
+        var articles: [PubMedArticle] = []
+
+        for (_, detail) in response.result {
+            let article = PubMedArticle(
+                pmid: detail.pmid, // ✅ FIXED: Changed from uid to pmid
+                pmcid: detail.pmcid,
+                doi: detail.doi,
+                title: detail.title,
+                abstract: detail.abstract ?? "No abstract available",
+                webLink: detail.webLink ?? "",
+                authors: detail.authors?.map { $0.name ?? "Unknown" },
+                journal: detail.journal, // ✅ FIXED: Changed from source to journal
+                pubDate: convertDateStringToDate(detail.pubdate), // ✅ FIXED: Convert string to Date
+                volume: detail.volume,
+                issue: detail.issue,
+                pages: detail.pages,
+                fullTextAvailable: false
+            )
+            articles.append(article)
         }
+
+        return articles
     }
 }
+
+// ✅ FIXED: Added date conversion function
+func convertDateStringToDate(_ dateString: String?) -> Date? {
+    guard let dateString = dateString else { return nil }
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy MMM dd" // Adjust format as needed
+    return formatter.date(from: dateString)
+}
+
 
 extension PubMedService {
     @MainActor
