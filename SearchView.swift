@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.6.1-alpha (Fixed Syntax Error & Final UIKit Override)
+//  Version: 0.6.2-alpha (Fixed UIKit Constraint Override)
 
 import SwiftUI
 import UIKit
@@ -30,7 +30,7 @@ struct SearchView: View {
                 .keyboardType(.default)
                 .onAppear {
                     isSearchFieldFocused = false
-                    enforceSafeKeyboardHandling() // ✅ Overriding UIKit globally
+                    enforceSafeKeyboardHandling() // ✅ Final UIKit fix
                 }
                 .onDisappear {
                     dismissKeyboard()
@@ -61,7 +61,7 @@ struct SearchView: View {
             .ignoresSafeArea(.keyboard, edges: .bottom)
         }
         .onAppear {
-            enforceSafeKeyboardHandling() // ✅ Ensures UIKit cannot reapply bad constraints
+            enforceSafeKeyboardHandling() // ✅ Ensures UIKit does not reapply constraints
         }
     }
 
@@ -112,18 +112,6 @@ struct SearchView: View {
                         systemViews.contains(where: { secondName.contains($0) }) {
                         window.removeConstraint(constraint)
                     }
-                }
-            }
-
-            // ✅ **Ultimate Fix: Disable UIKit Auto Layout Updates for System Views**
-            NotificationCenter.default.addObserver(
-                forName: UIView.alertForUnsatisfiableConstraintsNotification,
-                object: nil,
-                queue: .main
-            ) { notification in
-                guard let message = notification.userInfo?["NSLayoutConstraint"] as? String else { return }
-                if systemViews.contains(where: { message.contains($0) }) {
-                    print("🔹 Suppressed UIKit Auto Layout Warning: \(message)")
                 }
             }
         }
