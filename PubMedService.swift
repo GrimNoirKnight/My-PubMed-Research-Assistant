@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: Handles networking with the PubMed API.
-//  Version: 0.3.7-alpha (Fixed Author Extraction & API Parsing)
+//  Version: 0.3.8-alpha (Fixed Author Extraction & API Parsing)
 
 import Foundation
 
@@ -15,10 +15,10 @@ class PubMedService {
         }
 
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 15
+        sessionConfig.timeoutIntervalForRequest = 20  // 20 seconds timeout
         sessionConfig.timeoutIntervalForResource = 30
-        let session = URLSession(configuration: sessionConfig)
 
+        let session = URLSession(configuration: sessionConfig)
         let (data, response) = try await session.data(from: url)
 
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -38,7 +38,7 @@ class PubMedService {
                 abstract: detail.abstract ?? "No abstract available",
                 webLink: detail.webLink ?? "",
                 authors: detail.authors?.compactMap { $0.name },  // ✅ Extracting author names correctly
-                journal: detail.source,
+                journal: detail.journal,  // ✅ Fixing source/journal issue
                 pubDate: convertToDate(detail.pubdate),  // ✅ Fixing Date conversion
                 volume: detail.volume,
                 issue: detail.issue,
