@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: Handles networking with the PubMed API.
-//  Version: 0.3.5-alpha (Fixed Author Extraction & Date Conversion)
+//  Version: 0.3.6-alpha (Fixed Author Extraction & Date Conversion)
 
 import Foundation
 
@@ -37,7 +37,7 @@ class PubMedService {
                 title: detail.title,
                 abstract: detail.abstract ?? "No abstract available",
                 webLink: detail.webLink ?? "",
-                authors: detail.authors?.compactMap { author in author.name },  // ✅ FIXED: Correctly extract names
+                authors: detail.authors?.compactMap { author in author.name },  // ✅ FIXED: Extracts author names
                 journal: detail.journal,
                 pubDate: convertToDate(detail.pubdate),  // ✅ FIXED: Convert String → Date
                 volume: detail.volume,
