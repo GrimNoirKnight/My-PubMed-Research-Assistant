@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.4.3-alpha (Removed InputAccessoryView Constraint Conflicts)
+//  Version: 0.4.4-alpha (Fixed Keyboard Constraint Conflicts)
 
 import SwiftUI
 
@@ -29,7 +29,7 @@ struct SearchView: View {
                 .keyboardType(.default)
                 .onAppear {
                     isSearchFieldFocused = false
-                    removeAccessoryView() // ✅ Removes InputAccessoryView to avoid UIKit conflicts
+                    suppressKeyboardConflicts() // ✅ Eliminates UIKit conflicts
                 }
                 .onDisappear {
                     dismissKeyboard()
@@ -57,7 +57,7 @@ struct SearchView: View {
                 }
             }
             .navigationTitle("PubMed Search")
-            .ignoresSafeArea(.keyboard, edges: .bottom)
+            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Prevents UIKit from forcing constraints
         }
     }
 
@@ -78,24 +78,23 @@ struct SearchView: View {
         isLoading = false
     }
 
-    /// ✅ Helper function to dismiss the keyboard programmatically
+    /// ✅ Dismisses the keyboard programmatically
     private func dismissKeyboard() {
         DispatchQueue.main.async {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
 
-    /// ✅ Removes the InputAccessoryView to fix Auto Layout conflicts
-    private func removeAccessoryView() {
+    /// ✅ Completely suppresses keyboard conflicts by removing the input assistant view
+    private func suppressKeyboardConflicts() {
         DispatchQueue.main.async {
-            let keyWindow = UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .flatMap { $0.windows }
-                .first { $0.isKeyWindow }
-
-            keyWindow?.subviews.forEach { subview in
-                if subview.description.contains("InputAccessoryView") {
-                    subview.removeFromSuperview()
+            for window in UIApplication.shared.windows {
+                if let rootView = window.rootViewController?.view {
+                    rootView.subviews.forEach { subview in
+                        if subview.description.contains("InputAccessoryView") {
+                            subview.removeFromSuperview()
+                        }
+                    }
                 }
             }
         }
