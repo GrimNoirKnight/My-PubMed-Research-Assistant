@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: Model for handling detailed PubMed article data from API response.
-//  Version: 0.1.5-alpha (Fixed Decodable Conformance, Author Handling)
+//  Version: 0.1.6-alpha (Fixed Decodable Conformance, Author Handling)
 
 import Foundation
 
@@ -13,9 +13,9 @@ struct PubMedArticleDetails: Codable {
 }
 
 struct PubMedArticleDetail: Codable {
-    let pmid: String  // ✅ Fixed from uid to pmid
+    let pmid: String
     let pubdate: String?
-    let journal: String?  // ✅ Renamed from source to journal
+    let journal: String?  // ✅ Changed from `source`
     let title: String
     let volume: String?
     let issue: String?
@@ -23,11 +23,13 @@ struct PubMedArticleDetail: Codable {
     let authors: [Author]?
     let doi: String?
     let pmcid: String?
+    let abstract: String? // ✅ Added
+    let webLink: String? // ✅ Added
 
     enum CodingKeys: String, CodingKey {
-        case pmid = "uid"  // ✅ Fixed incorrect mapping
+        case pmid
         case pubdate
-        case journal = "source"  // ✅ Fixed incorrect mapping
+        case journal = "source" // ✅ Mapped from `source`
         case title
         case volume
         case issue
@@ -35,10 +37,8 @@ struct PubMedArticleDetail: Codable {
         case authors
         case doi
         case pmcid
-    }
-
-    struct Author: Codable {
-        let name: String?
+        case abstract // ✅ Mapped if missing
+        case webLink // ✅ Mapped if missing
     }
 }
 

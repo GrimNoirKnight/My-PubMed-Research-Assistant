@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: Service handling API calls to fetch PubMed articles.
-//  Version: 0.4.4-alpha (Improved Error Handling, Async/Await, JSON Decoding)
+//  Version: 0.4.5-alpha (Improved Error Handling, Async/Await, JSON Decoding)
 
 import Foundation
 
@@ -73,22 +73,24 @@ extension PubMedService {
                     let detail = try await fetchArticleDetails(articleID: pmid)
 
                     // ✅ Convert PubMedArticleDetail → PubMedArticle
-                    let article = PubMedArticle(
-                        pmid: detail.uid,
-                        pmcid: detail.pmcid,
-                        doi: detail.doi,
-                        title: detail.title,
-                        abstract: detail.abstract ?? "No abstract available",
-                        webLink: detail.webLink ?? "",
-                        authors: detail.authors?.compactMap { $0.name },
-                        journal: detail.source,
-                        pubDate: nil, // Convert if needed
-                        volume: detail.volume,
-                        issue: detail.issue,
-                        pages: detail.pages,
-                        fullTextAvailable: false
-                    )
-                    
+                    articles = fetchedArticleDetails.map { detail in
+                        PubMedArticle(
+                            pmid: detail.pmid,  // ✅ Changed from `uid`
+                            pmcid: detail.pmcid,
+                            doi: detail.doi,
+                            title: detail.title,
+                            abstract: detail.abstract ?? "No abstract available", // ✅ Added
+                            webLink: detail.webLink ?? "", // ✅ Added
+                            authors: detail.authors?.map { $0.name ?? "Unknown" },
+                            journal: detail.journal,  // ✅ Changed from `source`
+                            pubDate: detail.pubdate,
+                            volume: detail.volume,
+                            issue: detail.issue,
+                            pages: detail.pages,
+                            fullTextAvailable: false
+                        )
+                    }
+
                     articles.append(article)
                 } catch {
                     print("⚠️ Failed to fetch details for \(pmid): \(error.localizedDescription)")
