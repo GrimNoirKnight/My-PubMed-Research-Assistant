@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.4.0-alpha (Fixed Keyboard Constraints)
+//  Version: 0.4.1-alpha (Improved Keyboard Handling)
 
 import SwiftUI
 
@@ -23,6 +23,8 @@ struct SearchView: View {
                         }
                     }
                 })
+                .keyboardType(.default) // ✅ Forces the default keyboard
+                .scrollDismissesKeyboard(.interactively) // ✅ Ensures keyboard dismisses on scroll
 
                 if isLoading {
                     ProgressView("Searching...").padding()
@@ -42,10 +44,11 @@ struct SearchView: View {
                             }
                         }
                     }
+                    .scrollDismissesKeyboard(.interactively) // ✅ Fixes input view constraint issues
                 }
             }
             .navigationTitle("PubMed Search")
-            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Fixes Auto Layout Constraint Issues
+            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Ensures keyboard doesn't push layout unexpectedly
         }
     }
 
