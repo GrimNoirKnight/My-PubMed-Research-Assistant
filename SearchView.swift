@@ -5,7 +5,6 @@
 //  Version: 0.6.2-alpha (Fixed UIKit Constraint Override)
 
 import SwiftUI
-import UIKit
 
 struct SearchView: View {
     @State private var searchText: String = "Myelin THC"
@@ -30,7 +29,6 @@ struct SearchView: View {
                 .keyboardType(.default)
                 .onAppear {
                     isSearchFieldFocused = false
-                    enforceSafeKeyboardHandling() // ✅ Final UIKit fix
                 }
                 .onDisappear {
                     dismissKeyboard()
@@ -54,14 +52,11 @@ struct SearchView: View {
                             }
                         }
                     }
-                    .scrollDismissesKeyboard(.interactively)
+                    .scrollDismissesKeyboard(.interactively) // ✅ Fixes keyboard auto-dismiss
                 }
             }
             .navigationTitle("PubMed Search")
-            .ignoresSafeArea(.keyboard, edges: .bottom)
-        }
-        .onAppear {
-            enforceSafeKeyboardHandling() // ✅ Ensures UIKit does not reapply constraints
+            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Prevents layout shifts
         }
     }
 
@@ -88,32 +83,4 @@ struct SearchView: View {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
-
-    /// ✅ **Final Override of UIKit Constraint Handling**
-    private func enforceSafeKeyboardHandling() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            guard let window = UIApplication.shared.windows.first else { return }
-            let systemViews = ["UIRemoteKeyboardPlaceholderView", "InputAssistantView", "InputAccessoryView"]
-
-            // ✅ Remove any lingering system views
-            for view in window.subviews {
-                if systemViews.contains(where: { view.description.contains($0) }) {
-                    view.removeFromSuperview()
-                }
-            }
-
-            // ✅ Force UIKit to release broken constraints
-            for constraint in window.constraints {
-                if let firstItem = constraint.firstItem, let secondItem = constraint.secondItem {
-                    let firstName = String(describing: firstItem)
-                    let secondName = String(describing: secondItem)
-                    
-                    if systemViews.contains(where: { firstName.contains($0) }) ||
-                        systemViews.contains(where: { secondName.contains($0) }) {
-                        window.removeConstraint(constraint)
-                    }
-                }
-            }
-        }
-    }
-} // ✅ **Closing brace for `SearchView`**
+}
