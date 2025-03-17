@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: Service handling API calls to fetch PubMed articles.
-//  Version: 0.4.8-alpha (Improved Error Handling, Async/Await, JSON Decoding)
+//  Version: 0.4.9-alpha (Improved Error Handling, Async/Await, JSON Decoding)
 
 import Foundation
 
@@ -24,15 +24,15 @@ struct PubMedService {
         let decodedResponse = try JSONDecoder().decode(PubMedArticleDetails.self, from: data)
         return decodedResponse.result.values.map { detail in
             PubMedArticle(
-                pmid: detail.uid,
+                pmid: detail.pmid,
                 pmcid: detail.pmcid,
                 doi: detail.doi,
                 title: detail.title,
                 abstract: detail.abstract ?? "No abstract available",
                 webLink: detail.webLink ?? "",
                 authors: detail.authors?.map { $0.name ?? "Unknown Author" },
-                journal: detail.source,
-                pubDate: detail.pubdate,
+                journal: detail.journal,
+                pubDate: article.pubdate.flatMap { ISO8601DateFormatter().date(from: $0) },
                 volume: detail.volume,
                 issue: detail.issue,
                 pages: detail.pages,
