@@ -1,8 +1,8 @@
-//  PubMedArticleDetails.swift
+//  PubMedArticleDetail.swift
 //  My PubMed Research Assistant
 //
-//  Description: Model for handling detailed PubMed article data from API response.
-//  Version: 0.1.8-alpha (Fixed Missing Fields: Abstract & WebLink)
+//  Description: Handles detailed data parsing for PubMed API responses.
+//  Version: 0.3.9-alpha (Fixed Missing Journal Field)
 
 import Foundation
 
@@ -13,7 +13,7 @@ struct PubMedArticleDetails: Codable {
 struct PubMedArticleDetail: Codable {
     let uid: String
     let pubdate: String?
-    let source: String?
+    let journal: String?  // ✅ Fixed missing journal field
     let title: String
     let volume: String?
     let issue: String?
@@ -21,23 +21,23 @@ struct PubMedArticleDetail: Codable {
     let authors: [Author]?
     let doi: String?
     let pmcid: String?
-    let abstract: String?  // ✅ FIXED: Added missing `abstract`
-    let webLink: String?   // ✅ FIXED: Added missing `webLink`
+    let abstract: String?
+    let webLink: String?
 
     enum CodingKeys: String, CodingKey {
-        case uid, pubdate, source, title, volume, issue, pages, authors, doi, pmcid, abstract, webLink
+        case uid, pubdate, journal, title, volume, issue, pages, authors, doi, pmcid, abstract, webLink
     }
 
     struct Author: Codable {
-        let name: String
+        let name: String?
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         uid = try container.decode(String.self, forKey: .uid)
         pubdate = try? container.decode(String.self, forKey: .pubdate)
-        source = try? container.decode(String.self, forKey: .source)
+        journal = try? container.decode(String.self, forKey: .journal)  // ✅ Ensure journal is decoded
         title = try container.decode(String.self, forKey: .title)
         volume = try? container.decode(String.self, forKey: .volume)
         issue = try? container.decode(String.self, forKey: .issue)
@@ -45,7 +45,7 @@ struct PubMedArticleDetail: Codable {
         authors = try? container.decode([Author].self, forKey: .authors)
         doi = try? container.decode(String.self, forKey: .doi)
         pmcid = try? container.decode(String.self, forKey: .pmcid)
-        abstract = try? container.decode(String.self, forKey: .abstract)  // ✅ Fixed: Ensure decoding of `abstract`
-        webLink = try? container.decode(String.self, forKey: .webLink)    // ✅ Fixed: Ensure decoding of `webLink`
+        abstract = try? container.decode(String.self, forKey: .abstract)
+        webLink = try? container.decode(String.self, forKey: .webLink)
     }
 }
