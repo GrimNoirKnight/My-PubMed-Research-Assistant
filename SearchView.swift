@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.3.3-alpha (Fixed Fetch Logic & UI Performance)
+//  Version: 0.4.0-alpha (Fixed Keyboard Constraints)
 
 import SwiftUI
 
@@ -11,7 +11,7 @@ struct SearchView: View {
     @State private var articles: [PubMedArticle] = []
     @State private var isLoading: Bool = false
     @State private var errorMessage: String? = nil
-    private let pubMedService = PubMedService()  // ✅ Fix: Removed redundant declaration
+    private let pubMedService = PubMedService()
 
     var body: some View {
         NavigationStack {
@@ -23,24 +23,18 @@ struct SearchView: View {
                         }
                     }
                 })
-                
+
                 if isLoading {
-                    ProgressView("Searching...")
-                        .padding()
+                    ProgressView("Searching...").padding()
                 } else if let errorMessage = errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .padding()
+                    Text(errorMessage).foregroundColor(.red).padding()
                 } else if articles.isEmpty {
-                    Text("No articles found.")
-                        .foregroundColor(.gray)
-                        .padding()
+                    Text("No articles found.").foregroundColor(.gray).padding()
                 } else {
                     List(articles) { article in
                         NavigationLink(destination: ArticleDetailView(article: article)) {
                             VStack(alignment: .leading) {
-                                Text(article.title)
-                                    .font(.headline)
+                                Text(article.title).font(.headline)
                                 Text(article.abstract ?? "No abstract available.")
                                     .font(.subheadline)
                                     .lineLimit(2)
@@ -51,6 +45,7 @@ struct SearchView: View {
                 }
             }
             .navigationTitle("PubMed Search")
+            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Fixes Auto Layout Constraint Issues
         }
     }
 
