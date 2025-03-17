@@ -2,9 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>DISABLED_NSAllowsLocalNetworking</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSPersistentStoreDescription</key>
+	<dict>
+		<key>NSPersistentCloudKitContainerOptions</key>
+		<dict>
+			<key>NSPersistentCloudKitContainerOptionsKey</key>
+			<true/>
+		</dict>
+		<key>NSPersistentHistoryTracking</key>
+		<true/>
+	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>remote-notification</string>
+		<string>fetch</string>
 	</array>
 </dict>
 </plist>

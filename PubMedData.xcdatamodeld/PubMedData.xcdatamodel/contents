@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D81" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="StoredArticle" representedClassName="StoredArticle" syncable="YES">
+        <attribute name="abstract" attributeType="String"/>
+        <attribute name="affiliations" optional="YES" attributeType="String"/>
+        <attribute name="authors" attributeType="String"/>
+        <attribute name="conflictOfInterest" optional="YES" attributeType="String"/>
+        <attribute name="dateSaved" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="doi" optional="YES" attributeType="String"/>
+        <attribute name="fullTextAvailable" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="funding" optional="YES" attributeType="String"/>
+        <attribute name="issue" optional="YES" attributeType="String"/>
+        <attribute name="journal" optional="YES" attributeType="String"/>
+        <attribute name="keywords" optional="YES" attributeType="String"/>
+        <attribute name="meSHterms" optional="YES" attributeType="String"/>
+        <attribute name="pages" optional="YES" attributeType="String"/>
+        <attribute name="pmcid" optional="YES" attributeType="String"/>
+        <attribute name="pmid" attributeType="String"/>
+        <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="volume" optional="YES" attributeType="String"/>
+        <attribute name="webLink" optional="YES" attributeType="String"/>
+    </entity>
+</model>
