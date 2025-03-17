@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.2.8-alpha (Fixed Infinite Searching & Abstract Display)
+//  Version: 0.3.1-alpha (Optimized Fetch & UI Performance)
 
 import SwiftUI
 
@@ -11,19 +11,14 @@ struct SearchView: View {
     @State private var articles: [PubMedArticle] = []
     @State private var isLoading: Bool = false
     @State private var errorMessage: String? = nil
-    @State private var lastSearchText: String = ""
-    @State private var debounceTimer: Timer?
-    
     private let pubMedService = PubMedService()
     
     var body: some View {
         NavigationStack {
             VStack {
                 SearchBar(text: $searchText, onSearch: {
-                    debounceTimer?.invalidate()
-                    debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
-                        if searchText.trimmingCharacters(in: .whitespacesAndNewlines).count > 2, searchText != lastSearchText {
-                            lastSearchText = searchText
+                    if searchText.trimmingCharacters(in: .whitespacesAndNewlines).count > 2 {
+                        DispatchQueue.global(qos: .background).async {
                             Task {
                                 await fetchArticles()
                             }
@@ -43,7 +38,7 @@ struct SearchView: View {
                         .foregroundColor(.gray)
                         .padding()
                 } else {
-                    List(articles) { article in
+                    List(articles.prefix(20)) { article in // Only load 20 items for performance
                         NavigationLink(destination: ArticleDetailView(article: article)) {
                             VStack(alignment: .leading) {
                                 Text(article.title)
@@ -57,44 +52,19 @@ struct SearchView: View {
                     }
                 }
             }
-            .navigationTitle("PubMed Research")
+            .navigationTitle("PubMed Search")
         }
     }
 
-    // ✅ Fixed function
     @MainActor
     private func fetchArticles() async {
         guard !searchText.isEmpty else { return }
-
         isLoading = true
         errorMessage = nil
 
         do {
-            let fetchedArticleDetails = try await pubMedService.searchArticlesAsync(query: searchText)
-
-            articles = fetchedArticleDetails.map { detail in
-                PubMedArticle(
-                    pmid: detail.pmid,  // ✅ FIXED: Changed from uid to pmid
-                    pmcid: detail.pmcid,
-                    doi: detail.doi,
-                    title: detail.title,
-                    abstract: detail.abstract ?? "No abstract available",
-                    webLink: detail.webLink ?? "",
-                    authors: detail.authors,  // ✅ FIXED: No need to map `.name`
-                    affiliations: nil,
-                    keywords: nil,
-                    journal: detail.journal,  // ✅ FIXED: Changed from source to journal
-                    pubDate: nil,
-                    volume: detail.volume,
-                    issue: detail.issue,
-                    pages: detail.pages,
-                    meSHterms: nil,
-                    funding: nil,
-                    conflictOfInterest: nil,
-                    fullTextAvailable: false
-                )
-            }
-
+            let fetchedArticles = try await pubMedService.searchArticlesAsync(query: searchText)
+            articles = fetchedArticles
             errorMessage = articles.isEmpty ? "No articles found." : nil
         } catch {
             errorMessage = "Search Error: \(error.localizedDescription)"
