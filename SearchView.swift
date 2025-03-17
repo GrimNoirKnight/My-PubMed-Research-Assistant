@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.4.1-alpha (Improved Keyboard Handling)
+//  Version: 0.4.2-alpha (Fixed Auto Layout Keyboard Conflict)
 
 import SwiftUI
 
@@ -11,6 +11,8 @@ struct SearchView: View {
     @State private var articles: [PubMedArticle] = []
     @State private var isLoading: Bool = false
     @State private var errorMessage: String? = nil
+    @FocusState private var isSearchFieldFocused: Bool  // ✅ Focus management
+
     private let pubMedService = PubMedService()
 
     var body: some View {
@@ -23,8 +25,14 @@ struct SearchView: View {
                         }
                     }
                 })
-                .keyboardType(.default) // ✅ Forces the default keyboard
-                .scrollDismissesKeyboard(.interactively) // ✅ Ensures keyboard dismisses on scroll
+                .focused($isSearchFieldFocused) // ✅ Enable focus management
+                .keyboardType(.default)
+                .onAppear {
+                    isSearchFieldFocused = false  // ✅ Ensures keyboard does not open on view load
+                }
+                .onDisappear {
+                    dismissKeyboard() // ✅ Ensures keyboard dismissal when navigating away
+                }
 
                 if isLoading {
                     ProgressView("Searching...").padding()
@@ -44,11 +52,11 @@ struct SearchView: View {
                             }
                         }
                     }
-                    .scrollDismissesKeyboard(.interactively) // ✅ Fixes input view constraint issues
+                    .scrollDismissesKeyboard(.interactively) // ✅ Enables smooth keyboard dismissal
                 }
             }
             .navigationTitle("PubMed Search")
-            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Ensures keyboard doesn't push layout unexpectedly
+            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Ensures keyboard doesn’t interfere with layout
         }
     }
 
@@ -67,5 +75,12 @@ struct SearchView: View {
         }
 
         isLoading = false
+    }
+
+    /// ✅ Helper function to dismiss the keyboard programmatically
+    private func dismissKeyboard() {
+        DispatchQueue.main.async {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     }
 }
