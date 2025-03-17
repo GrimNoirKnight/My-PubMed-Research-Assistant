@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.2.7-alpha (Fixed Infinite Searching & Abstract Display)
+//  Version: 0.2.8-alpha (Fixed Infinite Searching & Abstract Display)
 
 import SwiftUI
 
@@ -57,7 +57,7 @@ struct SearchView: View {
                     }
                 }
             }
-            .navigationTitle("PubMed Search")
+            .navigationTitle("PubMed Research")
         }
     }
 
