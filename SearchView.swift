@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.3.1-alpha (Optimized Fetch & UI Performance)
+//  Version: 0.3.3-alpha (Fixed Fetch Logic & UI Performance)
 
 import SwiftUI
 
@@ -11,17 +11,15 @@ struct SearchView: View {
     @State private var articles: [PubMedArticle] = []
     @State private var isLoading: Bool = false
     @State private var errorMessage: String? = nil
-    private let pubMedService = PubMedService()
-    
+    private let pubMedService = PubMedService()  // ✅ Fix: Removed redundant declaration
+
     var body: some View {
         NavigationStack {
             VStack {
                 SearchBar(text: $searchText, onSearch: {
                     if searchText.trimmingCharacters(in: .whitespacesAndNewlines).count > 2 {
-                        DispatchQueue.global(qos: .background).async {
-                            Task {
-                                await fetchArticles()
-                            }
+                        Task {
+                            await fetchArticles()
                         }
                     }
                 })
@@ -38,7 +36,7 @@ struct SearchView: View {
                         .foregroundColor(.gray)
                         .padding()
                 } else {
-                    List(articles.prefix(20)) { article in // Only load 20 items for performance
+                    List(articles) { article in
                         NavigationLink(destination: ArticleDetailView(article: article)) {
                             VStack(alignment: .leading) {
                                 Text(article.title)

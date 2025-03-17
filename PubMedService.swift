@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: Handles networking with the PubMed API.
-//  Version: 0.3.1-alpha (Fixed API timeouts & decoding issues)
+//  Version: 0.3.3-alpha (Fixed Author Mapping & Date Parsing)
 
 import Foundation
 
@@ -15,7 +15,7 @@ class PubMedService {
         }
 
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 15 // Extended timeout
+        sessionConfig.timeoutIntervalForRequest = 15
         sessionConfig.timeoutIntervalForResource = 30
         let session = URLSession(configuration: sessionConfig)
 
@@ -37,14 +37,22 @@ class PubMedService {
                 title: detail.title,
                 abstract: detail.abstract ?? "No abstract available",
                 webLink: detail.webLink ?? "",
-                authors: detail.authors,
+                authors: detail.authors?.compactMap { $0.name },  // ✅ FIX: Convert `Author` to `[String]`
                 journal: detail.journal,
-                pubDate: detail.pubdate,
+                pubDate: convertToDate(detail.pubdate),  // ✅ FIX: Convert String → Date
                 volume: detail.volume,
                 issue: detail.issue,
                 pages: detail.pages,
                 fullTextAvailable: false
             )
         }
+    }
+
+    /// ✅ Helper function to convert PubMed's `pubdate` string into a `Date?`
+    private func convertToDate(_ dateString: String?) -> Date? {
+        guard let dateString = dateString else { return nil }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy MMM" // PubMed uses "2024 Dec" format
+        return formatter.date(from: dateString)
     }
 }
