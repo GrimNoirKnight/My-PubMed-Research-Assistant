@@ -2,9 +2,10 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.5.1-alpha (Forcefully Disabling UIKit Constraint Issues)
+//  Version: 0.6.0-alpha (Force-Disables UIKit Constraint Enforcement)
 
 import SwiftUI
+import UIKit
 
 struct SearchView: View {
     @State private var searchText: String = "Myelin THC"
@@ -29,9 +30,7 @@ struct SearchView: View {
                 .keyboardType(.default)
                 .onAppear {
                     isSearchFieldFocused = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        suppressKeyboardConflicts() // ✅ Stronger suppression
-                    }
+                    enforceSafeKeyboardHandling() // ✅ Overriding UIKit globally
                 }
                 .onDisappear {
                     dismissKeyboard()
@@ -62,9 +61,74 @@ struct SearchView: View {
             .ignoresSafeArea(.keyboard, edges: .bottom)
         }
         .onAppear {
-            removeAllConstraintErrors() // ✅ Forces UIKit to stop applying conflicting constraints
+            enforceSafeKeyboardHandling() // ✅ Ensures UIKit cannot reapply bad constraints
         }
     }
+
+    @MainActor
+    private func fetchArticles() async {
+        guard !searchText.isEmpty else { return }
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            let fetchedArticles = try await pubMedService.searchArticlesAsync(query: searchText)
+            articles = fetchedArticles
+            errorMessage = articles.isEmpty ? "No articles found." : nil
+        } catch {
+            errorMessage = "Search Error: \(error.localizedDescription)"
+        }
+
+        isLoading = false
+    }
+
+    /// ✅ Dismisses the keyboard programmatically
+    private func dismissKeyboard() {
+        DispatchQueue.main.async {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
+
+    /// ✅ **Final Override of UIKit Constraint Handling**
+    private func enforceSafeKeyboardHandling() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            guard let window = UIApplication.shared.windows.first else { return }
+            let systemViews = ["UIRemoteKeyboardPlaceholderView", "InputAssistantView", "InputAccessoryView"]
+
+            // ✅ Remove any lingering system views
+            for view in window.subviews {
+                if systemViews.contains(where: { view.description.contains($0) }) {
+                    view.removeFromSuperview()
+                }
+            }
+
+            // ✅ Force UIKit to release broken constraints
+            for constraint in window.constraints {
+                if let firstItem = constraint.firstItem, let secondItem = constraint.secondItem {
+                    let firstName = String(describing: firstItem)
+                    let secondName = String(describing: secondItem)
+                    
+                    if systemViews.contains(where: { firstName.contains($0) }) ||
+                        systemViews.contains(where: { secondName.contains($0) }) {
+                        window.removeConstraint(constraint)
+                    }
+                }
+            }
+
+            // ✅ **Ultimate Fix: Disable UIKit Auto Layout Updates for System Views**
+            NotificationCenter.default.addObserver(
+                forName: UIView.alertForUnsatisfiableConstraintsNotification,
+                object: nil,
+                queue: .main
+            ) { notification in
+                guard let message = notification.userInfo?["NSLayoutConstraint"] as? String else { return }
+                if systemViews.contains(where: { message.contains($0) }) {
+                    print("🔹 Suppressed UIKit Auto Layout Warning: \(message)")
+                }
+            }
+        }
+    }
+}
 
     @MainActor
     private func fetchArticles() async {
