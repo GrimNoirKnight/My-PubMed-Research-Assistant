@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.4.2-alpha (Fixed Auto Layout Keyboard Conflict)
+//  Version: 0.4.3-alpha (Removed InputAccessoryView Constraint Conflicts)
 
 import SwiftUI
 
@@ -11,7 +11,7 @@ struct SearchView: View {
     @State private var articles: [PubMedArticle] = []
     @State private var isLoading: Bool = false
     @State private var errorMessage: String? = nil
-    @FocusState private var isSearchFieldFocused: Bool  // ✅ Focus management
+    @FocusState private var isSearchFieldFocused: Bool // ✅ Focus control for keyboard
 
     private let pubMedService = PubMedService()
 
@@ -25,13 +25,14 @@ struct SearchView: View {
                         }
                     }
                 })
-                .focused($isSearchFieldFocused) // ✅ Enable focus management
+                .focused($isSearchFieldFocused)
                 .keyboardType(.default)
                 .onAppear {
-                    isSearchFieldFocused = false  // ✅ Ensures keyboard does not open on view load
+                    isSearchFieldFocused = false
+                    removeAccessoryView() // ✅ Removes InputAccessoryView to avoid UIKit conflicts
                 }
                 .onDisappear {
-                    dismissKeyboard() // ✅ Ensures keyboard dismissal when navigating away
+                    dismissKeyboard()
                 }
 
                 if isLoading {
@@ -52,11 +53,11 @@ struct SearchView: View {
                             }
                         }
                     }
-                    .scrollDismissesKeyboard(.interactively) // ✅ Enables smooth keyboard dismissal
+                    .scrollDismissesKeyboard(.interactively)
                 }
             }
             .navigationTitle("PubMed Search")
-            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Ensures keyboard doesn’t interfere with layout
+            .ignoresSafeArea(.keyboard, edges: .bottom)
         }
     }
 
@@ -81,6 +82,22 @@ struct SearchView: View {
     private func dismissKeyboard() {
         DispatchQueue.main.async {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
+
+    /// ✅ Removes the InputAccessoryView to fix Auto Layout conflicts
+    private func removeAccessoryView() {
+        DispatchQueue.main.async {
+            let keyWindow = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }
+
+            keyWindow?.subviews.forEach { subview in
+                if subview.description.contains("InputAccessoryView") {
+                    subview.removeFromSuperview()
+                }
+            }
         }
     }
 }
