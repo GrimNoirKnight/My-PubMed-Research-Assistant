@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: Model for handling detailed PubMed article data from API response.
-//  Version: 0.1.7-alpha (Fixed Author Mapping & Decoding)
+//  Version: 0.1.8-alpha (Fixed Missing Fields: Abstract & WebLink)
 
 import Foundation
 
@@ -18,16 +18,18 @@ struct PubMedArticleDetail: Codable {
     let volume: String?
     let issue: String?
     let pages: String?
-    let authors: [Author]?   // ✅ Fixed: Now properly typed as `[Author]`
+    let authors: [Author]?
     let doi: String?
     let pmcid: String?
+    let abstract: String?  // ✅ FIXED: Added missing `abstract`
+    let webLink: String?   // ✅ FIXED: Added missing `webLink`
 
     enum CodingKeys: String, CodingKey {
-        case uid, pubdate, source, title, volume, issue, pages, authors, doi, pmcid
+        case uid, pubdate, source, title, volume, issue, pages, authors, doi, pmcid, abstract, webLink
     }
 
     struct Author: Codable {
-        let name: String  // ✅ This allows `author.name` to be correctly extracted in PubMedService.swift
+        let name: String
     }
     
     init(from decoder: Decoder) throws {
@@ -40,8 +42,10 @@ struct PubMedArticleDetail: Codable {
         volume = try? container.decode(String.self, forKey: .volume)
         issue = try? container.decode(String.self, forKey: .issue)
         pages = try? container.decode(String.self, forKey: .pages)
-        authors = try? container.decode([Author].self, forKey: .authors) // ✅ Decoding correctly
+        authors = try? container.decode([Author].self, forKey: .authors)
         doi = try? container.decode(String.self, forKey: .doi)
         pmcid = try? container.decode(String.self, forKey: .pmcid)
+        abstract = try? container.decode(String.self, forKey: .abstract)  // ✅ Fixed: Ensure decoding of `abstract`
+        webLink = try? container.decode(String.self, forKey: .webLink)    // ✅ Fixed: Ensure decoding of `webLink`
     }
 }
