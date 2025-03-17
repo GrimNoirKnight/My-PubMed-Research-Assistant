@@ -2,7 +2,7 @@
 //  My PubMed Research Assistant
 //
 //  Description: Model for handling detailed PubMed article data from API response.
-//  Version: 0.1.7-alpha (Fixed Decodable Conformance, Author Handling)
+//  Version: 0.1.8-alpha (Fixed Decodable Conformance, Author Handling)
 
 import Foundation
 
@@ -28,7 +28,6 @@ struct PubMedArticleDetail: Codable {
         let name: String?
     }
 }
-
 // ✅ Define `ArticleID` struct to decode DOI, PMCID
 struct ArticleID: Codable {
     let idtype: String
