@@ -2,85 +2,43 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.6.2-alpha (Fixed UIKit Constraint Override)
+//  Version: 0.6.3-alpha (Fixed UIKit Constraint Override)
 
 import SwiftUI
 
 struct SearchView: View {
-    @State private var searchText: String = "Myelin THC"
-    @State private var articles: [PubMedArticle] = []
-    @State private var isLoading: Bool = false
-    @State private var errorMessage: String? = nil
-    @FocusState private var isSearchFieldFocused: Bool
-
-    private let pubMedService = PubMedService()
-
+    @State private var searchQuery = ""
+    @State private var isKeyboardVisible = false
+    
     var body: some View {
-        NavigationStack {
+        GeometryReader { geometry in
             VStack {
-                SearchBar(text: $searchText, onSearch: {
-                    if searchText.trimmingCharacters(in: .whitespacesAndNewlines).count > 2 {
-                        Task {
-                            await fetchArticles()
-                        }
+                TextField("Search PubMed", text: $searchQuery)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                        isKeyboardVisible = true
                     }
-                })
-                .focused($isSearchFieldFocused)
-                .keyboardType(.default)
-                .onAppear {
-                    isSearchFieldFocused = false
-                }
-                .onDisappear {
-                    dismissKeyboard()
-                }
-
-                if isLoading {
-                    ProgressView("Searching...").padding()
-                } else if let errorMessage = errorMessage {
-                    Text(errorMessage).foregroundColor(.red).padding()
-                } else if articles.isEmpty {
-                    Text("No articles found.").foregroundColor(.gray).padding()
-                } else {
-                    List(articles) { article in
-                        NavigationLink(destination: ArticleDetailView(article: article)) {
-                            VStack(alignment: .leading) {
-                                Text(article.title).font(.headline)
-                                Text(article.abstract ?? "No abstract available.")
-                                    .font(.subheadline)
-                                    .lineLimit(2)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
+                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                        isKeyboardVisible = false
                     }
-                    .scrollDismissesKeyboard(.interactively) // ✅ Fixes keyboard auto-dismiss
-                }
+                    .background(Color(.systemBackground))
+                    .cornerRadius(10)
+                    .shadow(radius: isKeyboardVisible ? 3 : 0)
+                    .animation(.easeInOut, value: isKeyboardVisible)
+                    
+                Spacer()
             }
-            .navigationTitle("PubMed Search")
-            .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Prevents layout shifts
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(.secondarySystemBackground))
+            .ignoresSafeArea(.keyboard, edges: .bottom) // Prevents UIKit conflicts
         }
     }
+}
 
-    @MainActor
-    private func fetchArticles() async {
-        guard !searchText.isEmpty else { return }
-        isLoading = true
-        errorMessage = nil
-
-        do {
-            let fetchedArticles = try await pubMedService.searchArticlesAsync(query: searchText)
-            articles = fetchedArticles
-            errorMessage = articles.isEmpty ? "No articles found." : nil
-        } catch {
-            errorMessage = "Search Error: \(error.localizedDescription)"
-        }
-
-        isLoading = false
-    }
-
-    /// ✅ Dismisses the keyboard programmatically
-    private func dismissKeyboard() {
-        DispatchQueue.main.async {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
+struct SearchView_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchView()
     }
 }
