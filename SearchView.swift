@@ -2,64 +2,71 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.6.4-alpha (Fixed UIKit Constraint Override)
+//  Version: 0.6.6-alpha (Fixed Hourglass & UIKit Constraints)
 
 import SwiftUI
 
 struct SearchView: View {
-    @State private var searchQuery = "Myelin THC" // ✅ Default search term restored
-    @State private var isLoading = false          // ✅ Loading state for hourglass
+    @State private var searchQuery: String = "Myelin THC"
+    @State private var isSearching = false
     @FocusState private var isTextFieldFocused: Bool
-
+    
     var body: some View {
-        NavigationView {
-            VStack {
-                // ✅ Search Field
+        VStack {
+            // Title
+            Text("PubMed Search")
+                .font(.title)
+                .bold()
+                .padding(.top, 10)
+
+            // Search Bar
+            HStack {
                 TextField("Search PubMed", text: $searchQuery)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                     .focused($isTextFieldFocused)
-                    .onSubmit {
-                        performSearch()
-                    }
 
-                // ✅ Loading Indicator (Hourglass)
-                if isLoading {
-                    ProgressView("Searching…")
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .padding()
+                Button(action: {
+                    performSearch()
+                }) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.title2)
+                        .padding(10)
                 }
-
-                // ✅ Placeholder for Search Results (Replace with actual list)
-                Spacer()
-                Text("Search results will appear here.")
-                    .foregroundColor(.gray)
-
+                .background(Color.blue.opacity(0.2))
+                .cornerRadius(8)
             }
-            .padding()
-            .navigationTitle("Search PubMed") // ✅ Restored missing title
-            .onAppear {
-                fixKeyboardConstraints()
+            .padding(.horizontal)
+
+            // Hourglass Indicator (Loading State)
+            if isSearching {
+                ProgressView("Searching...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
             }
+
+            Spacer()
+        }
+        .padding()
+        .background(Color(.secondarySystemBackground))
+        .ignoresSafeArea(.keyboard, edges: .bottom) // Prevent UIKit conflicts
+        .onTapGesture {
+            isTextFieldFocused = false // Dismiss keyboard
         }
     }
 
-    /// ✅ Simulated search function with delay
+    // Function to Handle Search
     private func performSearch() {
-        isLoading = true
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 2) {
-            isLoading = false
-        }
-    }
+        isSearching = true
 
-    /// ✅ Fix UIKit Keyboard Constraints (Prevents breaking layout)
-    private func fixKeyboardConstraints() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            UIApplication.shared.windows.first?.rootViewController?.view.setNeedsLayout()
+        // Simulate search delay (replace with actual API call)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            isSearching = false
         }
     }
 }
 
+// Preview
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
