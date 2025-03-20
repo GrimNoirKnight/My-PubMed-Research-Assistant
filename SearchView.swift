@@ -2,15 +2,15 @@
 //  My PubMed Research Assistant
 //
 //  Description: UI for searching PubMed articles and displaying results.
-//  Version: 0.6.6-alpha (Fixed Hourglass & UIKit Constraints)
+//  Version: 0.6.8-alpha (Fixed Hourglass & UIKit Constraints)
 
 import SwiftUI
 
 struct SearchView: View {
-    @State private var searchQuery: String = "Myelin THC"
+    @State private var searchQuery = "Myelin THC"
     @State private var isSearching = false
     @FocusState private var isTextFieldFocused: Bool
-    
+
     var body: some View {
         VStack {
             // Title
@@ -24,6 +24,7 @@ struct SearchView: View {
                 TextField("Search PubMed", text: $searchQuery)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                    .frame(minHeight: 44) // ✅ Ensures minimum height to avoid layout conflicts
                     .focused($isTextFieldFocused)
 
                 Button(action: {
@@ -49,9 +50,9 @@ struct SearchView: View {
         }
         .padding()
         .background(Color(.secondarySystemBackground))
-        .ignoresSafeArea(.keyboard, edges: .bottom) // Prevent UIKit conflicts
+        .ignoresSafeArea(.keyboard, edges: .bottom) // ✅ Prevent keyboard overlap
         .onTapGesture {
-            isTextFieldFocused = false // Dismiss keyboard
+            isTextFieldFocused = false // ✅ Dismiss keyboard when tapping outside
         }
     }
 

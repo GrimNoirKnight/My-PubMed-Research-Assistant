@@ -121,6 +121,7 @@
 		716E84662D8529C900386B68 = {
 			isa = PBXGroup;
 			children = (
+				71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */,
 				715324692D86AEDD00CA2F48 /* ArticleDetailView.swift */,
 				7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */,
 				71BAE3752D86B1B600FF1EB9 /* ContentView.swift */,
@@ -131,7 +132,6 @@
 				71BAE37F2D86B39800FF1EB9 /* PubMedService.swift */,
 				7123B0422D87B0B500C3FA2A /* SearchBar.swift */,
 				71BAE3812D86B3B700FF1EB9 /* SearchView.swift */,
-				71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */,
 				71BAE3832D86B3D300FF1EB9 /* StoredArticle.swift */,
 				716E84712D8529C900386B68 /* My PubMed Research Assistant */,
 				716E84892D8529CD00386B68 /* My PubMed Research AssistantTests */,
