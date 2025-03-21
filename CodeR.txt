@@ -1,0 +1,566 @@
+//  AppDelegate.swift
+//  My PubMed Research Assistant
+//
+//  Description: Legacy UIApplicationDelegate entry point.
+//  Version: 0.0.2-alpha
+
+import UIKit
+
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        return true
+    }
+}
+
+
+//  ArticleDetailView.swift
+//  My PubMed Research Assistant
+//
+//  Description: View displaying details of a selected PubMed article.
+//  Version: 0.0.3-alpha
+
+import SwiftUI
+
+struct ArticleDetailView: View {
+    let article: PubMedArticle
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(article.title)
+                    .font(.headline)
+
+                if let abstract = article.abstract, !abstract.isEmpty {
+                    Text(abstract)
+                        .font(.body)
+                } else {
+                    Text("No abstract available")
+                        .font(.body)
+                        .foregroundColor(.gray)
+                }
+
+                if let webLink = article.webLink, let url = URL(string: webLink) {
+                    Link("Read More", destination: url)
+                        .foregroundColor(.blue)
+                } else {
+                    Text("No valid link available")
+                        .foregroundColor(.gray)
+                }
+
+                Spacer()
+            }
+            .padding()
+        }
+        .navigationTitle("Article Details")
+    }
+}
+
+
+//  ArticleStorage.swift
+//  My PubMed Research Assistant
+//
+//  Description: Manages storing and retrieving PubMed articles from CoreData.
+//  Version: 0.1.3-alpha
+
+import Foundation
+import CoreData
+
+class ArticleStorage {
+    static let shared = ArticleStorage()
+    let container: NSPersistentContainer
+
+    private init() {
+        container = NSPersistentContainer(name: "PubMedData")
+        container.loadPersistentStores { desc, error in
+            if let error = error {
+                print("❌ CoreData Load Failed: \(error.localizedDescription)")
+            } else {
+                print("🟢 CoreData Store Loaded: \(desc.url?.absoluteString ?? "Unknown")")
+            }
+        }
+    }
+
+    func saveArticles(_ articles: [PubMedArticle]) {
+        let context = container.newBackgroundContext()
+        context.perform {
+            for article in articles {
+                let fetch: NSFetchRequest<StoredArticle> = StoredArticle.fetchRequest()
+                fetch.predicate = NSPredicate(format: "pmid == %@", article.pmid)
+
+                do {
+                    let results = try context.fetch(fetch)
+                    let stored = results.first ?? StoredArticle(context: context)
+
+                    stored.pmid = article.pmid
+                    stored.pmcid = article.pmcid
+                    stored.doi = article.doi
+                    stored.title = article.title
+                    stored.abstract = article.abstract
+                    stored.webLink = article.webLink
+                    stored.authors = article.authors?.joined(separator: ", ")
+                    stored.affiliations = article.affiliations?.joined(separator: "; ")
+                    stored.keywords = article.keywords?.joined(separator: ", ")
+                    stored.journal = article.journal
+                    stored.pubDate = article.pubDate
+                    stored.volume = article.volume
+                    stored.issue = article.issue
+                    stored.pages = article.pages
+                    stored.meSHterms = article.meSHterms?.joined(separator: ", ")
+                    stored.funding = article.funding?.joined(separator: "; ")
+                    stored.conflictOfInterest = article.conflictOfInterest
+                    stored.fullTextAvailable = article.fullTextAvailable
+                    stored.dateSaved = Date()
+                } catch {
+                    print("❌ Error fetching existing article: \(error)")
+                }
+            }
+
+            do {
+                try context.save()
+                print("🟢 Articles saved to CoreData.")
+            } catch {
+                print("❌ Failed to save articles: \(error)")
+            }
+        }
+    }
+
+    func loadCachedArticles(for query: String) -> [PubMedArticle] {
+        let context = container.viewContext
+        let fetch: NSFetchRequest<StoredArticle> = StoredArticle.fetchRequest()
+
+        do {
+            let stored = try context.fetch(fetch)
+            return stored.map { obj in
+                PubMedArticle(
+                    pmid: obj.pmid,
+                    pmcid: obj.pmcid,
+                    doi: obj.doi,
+                    title: obj.title,
+                    abstract: obj.abstract ?? "",
+                    webLink: obj.webLink ?? "",
+                    authors: obj.authors?.components(separatedBy: ", "),
+                    affiliations: obj.affiliations?.components(separatedBy: "; "),
+                    keywords: obj.keywords?.components(separatedBy: ", "),
+                    journal: obj.journal,
+                    pubDate: obj.pubDate,
+                    volume: obj.volume,
+                    issue: obj.issue,
+                    pages: obj.pages,
+                    meSHterms: obj.meSHterms?.components(separatedBy: ", "),
+                    funding: obj.funding?.components(separatedBy: "; "),
+                    conflictOfInterest: obj.conflictOfInterest,
+                    fullTextAvailable: obj.fullTextAvailable
+                )
+            }
+        } catch {
+            print("❌ Load failed: \(error)")
+            return []
+        }
+    }
+}
+
+
+//  CleanTextField.swift
+//  My PubMed Research Assistant
+//
+//  Description: UIKit-wrapped TextField to remove InputAssistantView constraint crash
+//  Version: 0.1.0-alpha
+
+import SwiftUI
+import UIKit
+
+struct CleanTextField: UIViewRepresentable {
+    @Binding var text: String
+    var placeholder: String
+    var onCommit: () -> Void
+
+    func makeUIView(context: Context) -> UITextField {
+        let field = UITextField()
+        field.placeholder = placeholder
+        field.font = UIFont(name: "Arial", size: 12)
+        field.borderStyle = .roundedRect
+        field.returnKeyType = .search
+        field.delegate = context.coordinator
+
+        // ✅ Disable input assistant (crashes layout on iOS keyboard)
+        let item = field.inputAssistantItem
+        item.leadingBarButtonGroups = []
+        item.trailingBarButtonGroups = []
+
+        return field
+    }
+
+    func updateUIView(_ uiView: UITextField, context: Context) {
+        uiView.text = text
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UITextFieldDelegate {
+        var parent: CleanTextField
+
+        init(_ parent: CleanTextField) {
+            self.parent = parent
+        }
+
+        func textFieldDidChangeSelection(_ tf: UITextField) {
+            parent.text = tf.text ?? ""
+        }
+
+        func textFieldShouldReturn(_ tf: UITextField) -> Bool {
+            tf.resignFirstResponder()
+            parent.onCommit()
+            return true
+        }
+    }
+}
+
+
+//  ContentView.swift
+//  My PubMed Research Assistant
+//
+//  Description: Root navigation entry point.
+//  Version: 0.0.1-alpha
+
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        NavigationStack {
+            SearchView()
+                .navigationTitle("PubMed Search")
+        }
+    }
+}
+
+
+//  My_PubMed_Research_AssistantApp.swift
+//  My PubMed Research Assistant
+//
+//  Description: SwiftUI App entry point, CoreData integrated.
+//  Version: 0.0.7-alpha
+
+import SwiftUI
+
+@main
+struct My_PubMed_Research_AssistantApp: App {
+    let persistenceController = ArticleStorage.shared
+
+    init() {
+        // ✅ Disable system keyboard input assistant globally
+        UITextField.appearance().inputAssistantItem.leadingBarButtonGroups = []
+        UITextField.appearance().inputAssistantItem.trailingBarButtonGroups = []
+    }
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onAppear {
+                    NotificationCenter.default.addObserver(
+                        forName: UIApplication.didReceiveMemoryWarningNotification,
+                        object: nil,
+                        queue: .main
+                    ) { _ in
+                        print("⚠️ Memory warning received! Freeing up resources.")
+                        URLCache.shared.removeAllCachedResponses()
+                    }
+                }
+        }
+    }
+}
+
+
+//  PubMedArticle.swift
+//  My PubMed Research Assistant
+//
+//  Description: Model representing a PubMed article.
+//  Version: 0.1.1-alpha
+
+import Foundation
+
+struct PubMedArticle: Codable, Identifiable {
+    var id: String { pmid }
+
+    var pmid: String
+    var pmcid: String?
+    var doi: String?
+    var title: String
+    var abstract: String?
+    var webLink: String?
+    var authors: [String]?
+    var affiliations: [String]?
+    var keywords: [String]?
+    var journal: String?
+    var pubDate: Date?
+    var volume: String?
+    var issue: String?
+    var pages: String?
+    var meSHterms: [String]?
+    var funding: [String]?
+    var conflictOfInterest: String?
+    var fullTextAvailable: Bool
+}
+
+
+//  PubMedArticleDetail.swift
+//  My PubMed Research Assistant
+//
+//  Description: Detailed JSON model for parsing PubMed summary API response.
+//  Version: 0.3.9-alpha
+
+import Foundation
+
+struct PubMedArticleDetails: Codable {
+    let result: [String: PubMedArticleDetail]
+}
+
+struct PubMedArticleDetail: Codable {
+    let uid: String
+    let pubdate: String?
+    let journal: String?
+    let title: String
+    let volume: String?
+    let issue: String?
+    let pages: String?
+    let authors: [Author]?
+    let doi: String?
+    let pmcid: String?
+    let abstract: String?
+    let webLink: String?
+
+    struct Author: Codable {
+        let name: String?
+    }
+}
+
+
+//  PubMedSearchResult.swift
+//  My PubMed Research Assistant
+//
+//  Description: Model for initial PubMed search result IDs.
+//  Version: 0.1.2-alpha
+
+import Foundation
+
+struct PubMedSearchResult: Codable {
+    struct SearchResult: Codable {
+        let idlist: [String]?
+    }
+
+    let esearchresult: SearchResult?
+}
+
+
+//  PubMedService.swift
+//  My PubMed Research Assistant
+//
+//  Description: Fetches article summaries from PubMed APIs.
+//  Version: 0.3.9-alpha
+
+import Foundation
+
+class PubMedService {
+    private let baseURL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id="
+
+    func searchArticlesAsync(query: String) async throws -> [PubMedArticle] {
+        guard let url = URL(string: baseURL + query) else {
+            throw URLError(.badURL)
+        }
+
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 20
+        config.timeoutIntervalForResource = 30
+
+        let (data, response) = try await URLSession(configuration: config).data(from: url)
+
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+        let result = try decoder.decode(PubMedArticleDetails.self, from: data)
+
+        return result.result.values.map { detail in
+            PubMedArticle(
+                pmid: detail.uid,
+                pmcid: detail.pmcid,
+                doi: detail.doi,
+                title: detail.title,
+                abstract: detail.abstract ?? "",
+                webLink: detail.webLink ?? "",
+                authors: detail.authors?.compactMap { $0.name },
+                journal: detail.journal,
+                pubDate: convertToDate(detail.pubdate),
+                volume: detail.volume,
+                issue: detail.issue,
+                pages: detail.pages,
+                meSHterms: nil,
+                funding: nil,
+                conflictOfInterest: nil,
+                fullTextAvailable: false
+            )
+        }
+    }
+
+    private func convertToDate(_ str: String?) -> Date? {
+        guard let str = str else { return nil }
+        let fmt = DateFormatter()
+        fmt.dateFormat = "yyyy MMM"
+        return fmt.date(from: str)
+    }
+}
+
+
+//  SearchBar.swift
+//  My PubMed Research Assistant
+//
+//  Description: Custom SwiftUI search bar component.
+//  Version: 0.0.5-alpha
+
+import SwiftUI
+
+struct SearchBar: View {
+    @Binding var text: String
+    var onSearch: () -> Void
+
+    var body: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+
+            TextField("Search PubMed...", text: $text, onCommit: onSearch)
+                .disableAutocorrection(true)
+
+            if !text.isEmpty {
+                Button(action: { text = "" }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
+                }
+            }
+        }
+        .padding(10)
+        .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemGray6)))
+        .padding(.horizontal)
+    }
+}
+
+
+//  SearchView.swift
+//  My PubMed Research Assistant
+//
+//  Description: Search screen and user entry point.
+//  Version: 0.6.15-alpha
+
+import SwiftUI
+
+struct SearchView: View {
+    @State private var searchQuery: String = "Myelin THC"
+    @State private var isSearching = false
+    @FocusState private var isTextFieldFocused: Bool
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("PubMed Search")
+                    .font(.title)
+                    .bold()
+                    .padding(.top, 10)
+
+                HStack {
+                    CleanTextField(
+                        text: $searchQuery,
+                        placeholder: "Search PubMed",
+                        onCommit: {
+                            performSearch()
+                            isTextFieldFocused = false
+                        }
+                    )
+                    .frame(height: 36)
+
+                    Button(action: {
+                        performSearch()
+                        isTextFieldFocused = false
+                    }) {
+                        Image(systemName: "magnifyingglass")
+                            .font(.title2)
+                            .padding(10)
+                    }
+                    .background(Color(red: 0.235, green: 0.231, blue: 0.431))
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                }
+                .padding(.horizontal)
+
+                if isSearching {
+                    ProgressView("Searching...")
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .padding()
+                }
+
+                Spacer()
+            }
+            .padding()
+            .onTapGesture { isTextFieldFocused = false }
+        }
+        .background(Color.white)
+        .foregroundColor(Color(red: 0.235, green: 0.231, blue: 0.431))
+        .font(.custom("Arial", size: 12))
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+    }
+
+    private func performSearch() {
+        isSearching = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            isSearching = false
+        }
+    }
+}
+
+
+//  StoredArticle.swift
+//  My PubMed Research Assistant
+//
+//  Description: CoreData representation of PubMed article.
+//  Version: 0.2.1-alpha
+
+import Foundation
+import CoreData
+
+@objc(StoredArticle)
+public class StoredArticle: NSManagedObject {}
+
+extension StoredArticle {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<StoredArticle> {
+        return NSFetchRequest<StoredArticle>(entityName: "StoredArticle")
+    }
+
+    @NSManaged public var pmid: String
+    @NSManaged public var pmcid: String?
+    @NSManaged public var doi: String?
+    @NSManaged public var title: String
+    @NSManaged public var abstract: String?
+    @NSManaged public var webLink: String?
+    @NSManaged public var authors: String?
+    @NSManaged public var affiliations: String?
+    @NSManaged public var journal: String?
+    @NSManaged public var keywords: String?
+    @NSManaged public var pubDate: Date?
+    @NSManaged public var volume: String?
+    @NSManaged public var issue: String?
+    @NSManaged public var pages: String?
+    @NSManaged public var meSHterms: String?
+    @NSManaged public var funding: String?
+    @NSManaged public var conflictOfInterest: String?
+    @NSManaged public var fullTextAvailable: Bool
+    @NSManaged public var dateSaved: Date
+}

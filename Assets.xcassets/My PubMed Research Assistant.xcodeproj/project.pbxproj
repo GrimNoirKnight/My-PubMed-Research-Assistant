@@ -14,10 +14,6 @@
 		7123B0452D87B28500C3FA2A /* PubMedSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7123B0442D87B28500C3FA2A /* PubMedSearchResult.swift */; };
 		7153246A2D86AEDD00CA2F48 /* ArticleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715324692D86AEDD00CA2F48 /* ArticleDetailView.swift */; };
 		7153246C2D86AFC100CA2F48 /* ArticleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */; };
-<<<<<<< HEAD
-=======
-		719853C12D8DE11A00E36A88 /* CleanTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719853C02D8DE11A00E36A88 /* CleanTextField.swift */; };
->>>>>>> 7e8daf8 (v10)
 		71BAE3762D86B1B600FF1EB9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3752D86B1B600FF1EB9 /* ContentView.swift */; };
 		71BAE3782D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3772D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift */; };
 		71BAE3792D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3772D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift */; };
@@ -47,39 +43,15 @@
 		};
 /* End PBXContainerItemProxy section */
 
-<<<<<<< HEAD
-=======
-/* Begin PBXCopyFilesBuildPhase section */
-		71BC22BB2D8D0F8A00710F25 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
->>>>>>> 7e8daf8 (v10)
 /* Begin PBXFileReference section */
 		7123B03E2D87934B00C3FA2A /* PubMedData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PubMedData.xcdatamodel; sourceTree = "<group>"; };
 		7123B0422D87B0B500C3FA2A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		7123B0442D87B28500C3FA2A /* PubMedSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubMedSearchResult.swift; sourceTree = "<group>"; };
 		715324692D86AEDD00CA2F48 /* ArticleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailView.swift; sourceTree = "<group>"; };
 		7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleStorage.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		716E846F2D8529C900386B68 /* My PubMed Research Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My PubMed Research Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		716E84862D8529CD00386B68 /* My PubMed Research AssistantTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My PubMed Research AssistantTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		716E84902D8529CD00386B68 /* My PubMed Research AssistantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My PubMed Research AssistantUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-=======
-		715337E92D8D2DCF0041280A /* My_PubMed_Research_Assistant.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = My_PubMed_Research_Assistant.entitlements; sourceTree = "<group>"; };
-		716E846F2D8529C900386B68 /* My PubMed Research Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My PubMed Research Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		716E84862D8529CD00386B68 /* My PubMed Research AssistantTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My PubMed Research AssistantTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		716E84902D8529CD00386B68 /* My PubMed Research AssistantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My PubMed Research AssistantUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		719853C02D8DE11A00E36A88 /* CleanTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanTextField.swift; sourceTree = "<group>"; };
->>>>>>> 7e8daf8 (v10)
 		71BAE3752D86B1B600FF1EB9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		71BAE3772D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_PubMed_Research_AssistantApp.swift; sourceTree = "<group>"; };
 		71BAE37B2D86B32C00FF1EB9 /* PubMedArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubMedArticle.swift; sourceTree = "<group>"; };
@@ -90,34 +62,12 @@
 		71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-<<<<<<< HEAD
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		716E84982D8529CD00386B68 /* Exceptions for "My PubMed Research Assistant" folder in "My PubMed Research Assistant" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 716E846E2D8529C900386B68 /* My PubMed Research Assistant */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		716E84712D8529C900386B68 /* My PubMed Research Assistant */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				716E84982D8529CD00386B68 /* Exceptions for "My PubMed Research Assistant" folder in "My PubMed Research Assistant" target */,
-			);
-			path = "My PubMed Research Assistant";
-			sourceTree = "<group>";
-		};
 		716E84892D8529CD00386B68 /* My PubMed Research AssistantTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "My PubMed Research AssistantTests";
 			sourceTree = "<group>";
 		};
-=======
-/* Begin PBXFileSystemSynchronizedRootGroup section */
->>>>>>> 7e8daf8 (v10)
 		716E84932D8529CD00386B68 /* My PubMed Research AssistantUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "My PubMed Research AssistantUITests";
@@ -153,17 +103,9 @@
 		716E84662D8529C900386B68 = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */,
 				715324692D86AEDD00CA2F48 /* ArticleDetailView.swift */,
 				7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */,
-=======
-				715337E92D8D2DCF0041280A /* My_PubMed_Research_Assistant.entitlements */,
-				71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */,
-				715324692D86AEDD00CA2F48 /* ArticleDetailView.swift */,
-				7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */,
-				719853C02D8DE11A00E36A88 /* CleanTextField.swift */,
->>>>>>> 7e8daf8 (v10)
 				71BAE3752D86B1B600FF1EB9 /* ContentView.swift */,
 				71BAE3772D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift */,
 				71BAE37B2D86B32C00FF1EB9 /* PubMedArticle.swift */,
@@ -173,11 +115,7 @@
 				7123B0422D87B0B500C3FA2A /* SearchBar.swift */,
 				71BAE3812D86B3B700FF1EB9 /* SearchView.swift */,
 				71BAE3832D86B3D300FF1EB9 /* StoredArticle.swift */,
-<<<<<<< HEAD
-				716E84712D8529C900386B68 /* My PubMed Research Assistant */,
 				716E84892D8529CD00386B68 /* My PubMed Research AssistantTests */,
-=======
->>>>>>> 7e8daf8 (v10)
 				716E84932D8529CD00386B68 /* My PubMed Research AssistantUITests */,
 				716E84702D8529C900386B68 /* Products */,
 				7123B03D2D87934B00C3FA2A /* PubMedData.xcdatamodeld */,
@@ -204,21 +142,11 @@
 				716E846B2D8529C900386B68 /* Sources */,
 				716E846C2D8529C900386B68 /* Frameworks */,
 				716E846D2D8529C900386B68 /* Resources */,
-<<<<<<< HEAD
-=======
-				71BC22BB2D8D0F8A00710F25 /* Embed Foundation Extensions */,
->>>>>>> 7e8daf8 (v10)
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-<<<<<<< HEAD
-			fileSystemSynchronizedGroups = (
-				716E84712D8529C900386B68 /* My PubMed Research Assistant */,
-			);
-=======
->>>>>>> 7e8daf8 (v10)
 			name = "My PubMed Research Assistant";
 			packageProductDependencies = (
 			);
@@ -239,12 +167,9 @@
 			dependencies = (
 				716E84882D8529CD00386B68 /* PBXTargetDependency */,
 			);
-<<<<<<< HEAD
 			fileSystemSynchronizedGroups = (
 				716E84892D8529CD00386B68 /* My PubMed Research AssistantTests */,
 			);
-=======
->>>>>>> 7e8daf8 (v10)
 			name = "My PubMed Research AssistantTests";
 			packageProductDependencies = (
 			);
@@ -308,11 +233,6 @@
 			);
 			mainGroup = 716E84662D8529C900386B68;
 			minimizedProjectReferenceProxies = 1;
-<<<<<<< HEAD
-=======
-			packageReferences = (
-			);
->>>>>>> 7e8daf8 (v10)
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 716E84702D8529C900386B68 /* Products */;
 			projectDirPath = "";
@@ -367,10 +287,6 @@
 				7153246A2D86AEDD00CA2F48 /* ArticleDetailView.swift in Sources */,
 				7123B03F2D87934B00C3FA2A /* PubMedData.xcdatamodeld in Sources */,
 				71BAE3842D86B3D300FF1EB9 /* StoredArticle.swift in Sources */,
-<<<<<<< HEAD
-=======
-				719853C12D8DE11A00E36A88 /* CleanTextField.swift in Sources */,
->>>>>>> 7e8daf8 (v10)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,7 +330,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-<<<<<<< HEAD
 				CODE_SIGN_ENTITLEMENTS = "My PubMed Research Assistant/My_PubMed_Research_Assistant.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -424,17 +339,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "My PubMed Research Assistant/Info.plist";
-=======
-				CODE_SIGN_ENTITLEMENTS = My_PubMed_Research_Assistant.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = SBRT38UD7A;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Info.plist;
->>>>>>> 7e8daf8 (v10)
 				INFOPLIST_KEY_CFBundleDisplayName = "PubMed Research Assistant";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for research articles.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save articles as PDFs to your device.";
@@ -452,12 +356,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.clean-kitty.PubMed.My-PubMed-Research-Assistant";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-<<<<<<< HEAD
-=======
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
->>>>>>> 7e8daf8 (v10)
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -471,7 +369,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-<<<<<<< HEAD
 				CODE_SIGN_ENTITLEMENTS = "My PubMed Research Assistant/My_PubMed_Research_Assistant.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -481,17 +378,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "My PubMed Research Assistant/Info.plist";
-=======
-				CODE_SIGN_ENTITLEMENTS = My_PubMed_Research_Assistant.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = SBRT38UD7A;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Info.plist;
->>>>>>> 7e8daf8 (v10)
 				INFOPLIST_KEY_CFBundleDisplayName = "PubMed Research Assistant";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for research articles.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save articles as PDFs to your device.";
@@ -509,12 +395,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.clean-kitty.PubMed.My-PubMed-Research-Assistant";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-<<<<<<< HEAD
-=======
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
->>>>>>> 7e8daf8 (v10)
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
