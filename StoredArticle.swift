@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //  StoredArticle.swift
 //  My PubMed Research Assistant
 //
@@ -5,6 +6,22 @@
 //  Version: 0.2.1-alpha (Fixed Duplicate Declarations, Added CloudKit Sync)
 //
 
+=======
+//
+//  StoredArticle.swift
+//  My PubMed Research Assistant
+//
+//  Created by Alan Keizer on 3/21/25.
+//
+
+
+//  StoredArticle.swift
+//  My PubMed Research Assistant
+//
+//  Description: CoreData representation of PubMed article.
+//  Version: 0.2.1-alpha
+
+>>>>>>> cc80264 (Flattened directory structure using rsync)
 import Foundation
 import CoreData
 
@@ -35,4 +52,8 @@ extension StoredArticle {
     @NSManaged public var conflictOfInterest: String?
     @NSManaged public var fullTextAvailable: Bool
     @NSManaged public var dateSaved: Date
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> cc80264 (Flattened directory structure using rsync)

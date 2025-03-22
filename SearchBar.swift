@@ -1,7 +1,22 @@
+<<<<<<< HEAD
 //  SearchBar.swift
 //  My PubMed Research Assistant
 //
 //  Description: Custom Search Bar with a Magnifying Glass Icon
+=======
+//
+//  SearchBar.swift
+//  My PubMed Research Assistant
+//
+//  Created by Alan Keizer on 3/21/25.
+//
+
+
+//  SearchBar.swift
+//  My PubMed Research Assistant
+//
+//  Description: Custom SwiftUI search bar component.
+>>>>>>> cc80264 (Flattened directory structure using rsync)
 //  Version: 0.0.5-alpha
 
 import SwiftUI
@@ -12,6 +27,7 @@ struct SearchBar: View {
 
     var body: some View {
         HStack {
+<<<<<<< HEAD
             Image(systemName: "magnifyingglass") // 🔍 Magnifying Glass Icon
                 .foregroundColor(.gray)
 
@@ -24,6 +40,17 @@ struct SearchBar: View {
                     text = ""
                 }) {
                     Image(systemName: "xmark.circle.fill") // ❌ Clear Button
+=======
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+
+            TextField("Search PubMed...", text: $text, onCommit: onSearch)
+                .disableAutocorrection(true)
+
+            if !text.isEmpty {
+                Button(action: { text = "" }) {
+                    Image(systemName: "xmark.circle.fill")
+>>>>>>> cc80264 (Flattened directory structure using rsync)
                         .foregroundColor(.gray)
                 }
             }

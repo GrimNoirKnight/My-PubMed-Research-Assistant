@@ -1,13 +1,34 @@
+<<<<<<< HEAD
 //  PubMedArticle.swift
 //  My PubMed Research Assistant
 //
 //  Description: Model representing a PubMed article with all metadata.
 //  Version: 0.1.1-alpha (Added PMCID, DOI, Authors, MeSH Terms)
+=======
+//
+//  PubMedArticle.swift
+//  My PubMed Research Assistant
+//
+//  Created by Alan Keizer on 3/21/25.
+//
+
+
+//  PubMedArticle.swift
+//  My PubMed Research Assistant
+//
+//  Description: Model representing a PubMed article.
+//  Version: 0.1.1-alpha
+>>>>>>> cc80264 (Flattened directory structure using rsync)
 
 import Foundation
 
 struct PubMedArticle: Codable, Identifiable {
+<<<<<<< HEAD
     var id: String { pmid } // ✅ Uses PMID as unique ID
+=======
+    var id: String { pmid }
+
+>>>>>>> cc80264 (Flattened directory structure using rsync)
     var pmid: String
     var pmcid: String?
     var doi: String?
@@ -26,6 +47,7 @@ struct PubMedArticle: Codable, Identifiable {
     var funding: [String]?
     var conflictOfInterest: String?
     var fullTextAvailable: Bool
+<<<<<<< HEAD
 
     enum CodingKeys: String, CodingKey {
         case pmid
@@ -47,4 +69,6 @@ struct PubMedArticle: Codable, Identifiable {
         case conflictOfInterest
         case fullTextAvailable
     }
+=======
+>>>>>>> cc80264 (Flattened directory structure using rsync)
 }

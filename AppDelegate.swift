@@ -1,10 +1,16 @@
 //  AppDelegate.swift
 //  My PubMed Research Assistant
 //
+<<<<<<< HEAD
 //  Description: <AI FILL IN HERE>
 //  Version: 0.0.2-alpha
 
 
+=======
+//  Description: Legacy UIApplicationDelegate entry point.
+//  Version: 0.0.2-alpha
+
+>>>>>>> cc80264 (Flattened directory structure using rsync)
 import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {

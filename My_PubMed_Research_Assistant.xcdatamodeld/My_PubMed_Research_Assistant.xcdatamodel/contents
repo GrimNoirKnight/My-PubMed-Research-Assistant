@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<<<<<<< HEAD
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -6,4 +7,28 @@
     <elements>
         <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
     </elements>
+=======
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D81" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="StoredEntity" representedClassName="StoredEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="abstract" attributeType="String"/>
+        <attribute name="affiliations" optional="YES" attributeType="String"/>
+        <attribute name="authors" optional="YES" attributeType="String"/>
+        <attribute name="conflictOfInterest" optional="YES" attributeType="String"/>
+        <attribute name="dateSaved" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="doi" optional="YES" attributeType="String"/>
+        <attribute name="fullTextAvailable" optional="YES" attributeType="String"/>
+        <attribute name="funding" optional="YES" attributeType="String"/>
+        <attribute name="issue" optional="YES" attributeType="String"/>
+        <attribute name="journal" optional="YES" attributeType="String"/>
+        <attribute name="keywords" optional="YES" attributeType="String"/>
+        <attribute name="meSHterms" optional="YES" attributeType="String"/>
+        <attribute name="pages" optional="YES" attributeType="String"/>
+        <attribute name="pmcid" optional="YES" attributeType="String"/>
+        <attribute name="pmid" attributeType="String"/>
+        <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="volume" optional="YES" attributeType="String"/>
+        <attribute name="weblink" optional="YES" attributeType="String"/>
+    </entity>
+>>>>>>> cc80264 (Flattened directory structure using rsync)
 </model>
