@@ -1,0 +1,39 @@
+<!-- ==============================================================================
+  File Name:       com.adkeizer.setdisplays.plist
+  Version:         v01.000.000
+  Author:          adkeizer
+  Purpose:         Launch Agent to automatically run the set-displays.sh script
+                   at user login. This script corrects macOS display detection
+                   issues by explicitly setting display modes using Displayplacer.
+                   It ensures all connected monitors—including HDMI TVs—are 
+                   activated with the desired configuration.
+  Usage:           Place in ~/Library/LaunchAgents/ and load with:
+                       launchctl load ~/Library/LaunchAgents/com.adkeizer.setdisplays.plist
+                   The script will run automatically on user login.
+  Notes:           Output and error logs are written to /tmp for debugging.
+                   If screen IDs change, regenerate the Displayplacer command
+                   and update the shell script.
+============================================================================== -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.adkeizer.setdisplays</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/Users/adkeizer/Development/bash/set-displays.sh</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/setdisplays.out</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/setdisplays.err</string>
+  </dict>
+</plist>

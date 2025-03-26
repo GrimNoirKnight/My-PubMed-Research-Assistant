@@ -9,14 +9,14 @@
     </elements>
 =======
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D81" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="StoredEntity" representedClassName="StoredEntity" syncable="YES" codeGenerationType="class">
+    <entity name="StoredArticle" representedClassName="StoredArticle" syncable="YES">
         <attribute name="abstract" attributeType="String"/>
         <attribute name="affiliations" optional="YES" attributeType="String"/>
         <attribute name="authors" optional="YES" attributeType="String"/>
         <attribute name="conflictOfInterest" optional="YES" attributeType="String"/>
         <attribute name="dateSaved" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="doi" optional="YES" attributeType="String"/>
-        <attribute name="fullTextAvailable" optional="YES" attributeType="String"/>
+        <attribute name="fullTextAvailable" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="funding" optional="YES" attributeType="String"/>
         <attribute name="issue" optional="YES" attributeType="String"/>
         <attribute name="journal" optional="YES" attributeType="String"/>
@@ -28,7 +28,7 @@
         <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="volume" optional="YES" attributeType="String"/>
-        <attribute name="weblink" optional="YES" attributeType="String"/>
+        <attribute name="webLink" optional="YES" attributeType="String"/>
     </entity>
 >>>>>>> cc80264 (Flattened directory structure using rsync)
 </model>

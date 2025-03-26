@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 //  SearchBar.swift
 //  My PubMed Research Assistant
 //
@@ -12,6 +13,8 @@
 //
 
 
+=======
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 //  SearchBar.swift
 //  My PubMed Research Assistant
 //

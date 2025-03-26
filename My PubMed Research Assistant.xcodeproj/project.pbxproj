@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7123B03F2D87934B00C3FA2A /* PubMedData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7123B03D2D87934B00C3FA2A /* PubMedData.xcdatamodeld */; };
-		7123B0402D87934B00C3FA2A /* PubMedData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7123B03D2D87934B00C3FA2A /* PubMedData.xcdatamodeld */; };
-		7123B0412D87934B00C3FA2A /* PubMedData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7123B03D2D87934B00C3FA2A /* PubMedData.xcdatamodeld */; };
+		711013612D90C5DE00DB7DD0 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711013602D90C5DE00DB7DD0 /* PersistenceController.swift */; };
 		7123B0432D87B0B500C3FA2A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7123B0422D87B0B500C3FA2A /* SearchBar.swift */; };
 		7123B0452D87B28500C3FA2A /* PubMedSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7123B0442D87B28500C3FA2A /* PubMedSearchResult.swift */; };
+		713F699A2D9116F00086FB8D /* StoredArticle+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713F69992D9116F00086FB8D /* StoredArticle+CoreDataProperties.swift */; };
+		713F699B2D9116F00086FB8D /* StoredArticle+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713F69982D9116F00086FB8D /* StoredArticle+CoreDataClass.swift */; };
 		7153246A2D86AEDD00CA2F48 /* ArticleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715324692D86AEDD00CA2F48 /* ArticleDetailView.swift */; };
 		7153246C2D86AFC100CA2F48 /* ArticleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */; };
 <<<<<<< HEAD
@@ -19,15 +19,13 @@
 		719853C12D8DE11A00E36A88 /* CleanTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719853C02D8DE11A00E36A88 /* CleanTextField.swift */; };
 >>>>>>> 7e8daf8 (v10)
 		71BAE3762D86B1B600FF1EB9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3752D86B1B600FF1EB9 /* ContentView.swift */; };
-		71BAE3782D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3772D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift */; };
-		71BAE3792D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3772D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift */; };
 		71BAE37A2D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3772D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift */; };
 		71BAE37C2D86B32C00FF1EB9 /* PubMedArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE37B2D86B32C00FF1EB9 /* PubMedArticle.swift */; };
 		71BAE37E2D86B37200FF1EB9 /* PubMedArticleDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE37D2D86B37200FF1EB9 /* PubMedArticleDetails.swift */; };
 		71BAE3802D86B39800FF1EB9 /* PubMedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE37F2D86B39800FF1EB9 /* PubMedService.swift */; };
 		71BAE3822D86B3B700FF1EB9 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3812D86B3B700FF1EB9 /* SearchView.swift */; };
-		71BAE3842D86B3D300FF1EB9 /* StoredArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BAE3832D86B3D300FF1EB9 /* StoredArticle.swift */; };
 		71BB9CA62D8878FE00B1DF52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */; };
+		71E14DFA2D90B6FF00F93BB2 /* My_PubMed_Research_Assistant.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71E14DF82D90B6FF00F93BB2 /* My_PubMed_Research_Assistant.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,9 +62,11 @@
 
 >>>>>>> 7e8daf8 (v10)
 /* Begin PBXFileReference section */
-		7123B03E2D87934B00C3FA2A /* PubMedData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PubMedData.xcdatamodel; sourceTree = "<group>"; };
+		711013602D90C5DE00DB7DD0 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		7123B0422D87B0B500C3FA2A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		7123B0442D87B28500C3FA2A /* PubMedSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubMedSearchResult.swift; sourceTree = "<group>"; };
+		713F69982D9116F00086FB8D /* StoredArticle+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoredArticle+CoreDataClass.swift"; sourceTree = "<group>"; };
+		713F69992D9116F00086FB8D /* StoredArticle+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoredArticle+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		715324692D86AEDD00CA2F48 /* ArticleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailView.swift; sourceTree = "<group>"; };
 		7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleStorage.swift; sourceTree = "<group>"; };
 <<<<<<< HEAD
@@ -78,6 +78,7 @@
 		716E846F2D8529C900386B68 /* My PubMed Research Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My PubMed Research Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		716E84862D8529CD00386B68 /* My PubMed Research AssistantTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My PubMed Research AssistantTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		716E84902D8529CD00386B68 /* My PubMed Research AssistantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My PubMed Research AssistantUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		717D6D382D90B87F00FEFFF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		719853C02D8DE11A00E36A88 /* CleanTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanTextField.swift; sourceTree = "<group>"; };
 >>>>>>> 7e8daf8 (v10)
 		71BAE3752D86B1B600FF1EB9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,10 +87,11 @@
 		71BAE37D2D86B37200FF1EB9 /* PubMedArticleDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubMedArticleDetails.swift; sourceTree = "<group>"; };
 		71BAE37F2D86B39800FF1EB9 /* PubMedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubMedService.swift; sourceTree = "<group>"; };
 		71BAE3812D86B3B700FF1EB9 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		71BAE3832D86B3D300FF1EB9 /* StoredArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredArticle.swift; sourceTree = "<group>"; };
 		71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		71E14DF92D90B6FF00F93BB2 /* My_PubMed_Research_Assistant.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = My_PubMed_Research_Assistant.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		716E84982D8529CD00386B68 /* Exceptions for "My PubMed Research Assistant" folder in "My PubMed Research Assistant" target */ = {
@@ -125,6 +127,8 @@
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
+=======
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 /* Begin PBXFrameworksBuildPhase section */
 		716E846C2D8529C900386B68 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -159,6 +163,7 @@
 				7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */,
 =======
 				715337E92D8D2DCF0041280A /* My_PubMed_Research_Assistant.entitlements */,
+				717D6D382D90B87F00FEFFF4 /* Info.plist */,
 				71BB9CA52D8878FE00B1DF52 /* AppDelegate.swift */,
 				715324692D86AEDD00CA2F48 /* ArticleDetailView.swift */,
 				7153246B2D86AFC100CA2F48 /* ArticleStorage.swift */,
@@ -166,12 +171,14 @@
 >>>>>>> 7e8daf8 (v10)
 				71BAE3752D86B1B600FF1EB9 /* ContentView.swift */,
 				71BAE3772D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift */,
+				711013602D90C5DE00DB7DD0 /* PersistenceController.swift */,
 				71BAE37B2D86B32C00FF1EB9 /* PubMedArticle.swift */,
 				71BAE37D2D86B37200FF1EB9 /* PubMedArticleDetails.swift */,
 				7123B0442D87B28500C3FA2A /* PubMedSearchResult.swift */,
 				71BAE37F2D86B39800FF1EB9 /* PubMedService.swift */,
 				7123B0422D87B0B500C3FA2A /* SearchBar.swift */,
 				71BAE3812D86B3B700FF1EB9 /* SearchView.swift */,
+<<<<<<< HEAD
 				71BAE3832D86B3D300FF1EB9 /* StoredArticle.swift */,
 <<<<<<< HEAD
 				716E84712D8529C900386B68 /* My PubMed Research Assistant */,
@@ -179,8 +186,12 @@
 =======
 >>>>>>> 7e8daf8 (v10)
 				716E84932D8529CD00386B68 /* My PubMed Research AssistantUITests */,
+=======
+				713F69982D9116F00086FB8D /* StoredArticle+CoreDataClass.swift */,
+				713F69992D9116F00086FB8D /* StoredArticle+CoreDataProperties.swift */,
+				71E14DF82D90B6FF00F93BB2 /* My_PubMed_Research_Assistant.xcdatamodeld */,
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 				716E84702D8529C900386B68 /* Products */,
-				7123B03D2D87934B00C3FA2A /* PubMedData.xcdatamodeld */,
 			);
 			sourceTree = "<group>";
 		};
@@ -264,9 +275,6 @@
 			);
 			dependencies = (
 				716E84922D8529CD00386B68 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				716E84932D8529CD00386B68 /* My PubMed Research AssistantUITests */,
 			);
 			name = "My PubMed Research AssistantUITests";
 			packageProductDependencies = (
@@ -355,20 +363,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				71BAE3822D86B3B700FF1EB9 /* SearchView.swift in Sources */,
+				711013612D90C5DE00DB7DD0 /* PersistenceController.swift in Sources */,
 				71BAE37A2D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */,
 				71BAE37C2D86B32C00FF1EB9 /* PubMedArticle.swift in Sources */,
+				713F699A2D9116F00086FB8D /* StoredArticle+CoreDataProperties.swift in Sources */,
+				713F699B2D9116F00086FB8D /* StoredArticle+CoreDataClass.swift in Sources */,
 				71BAE3802D86B39800FF1EB9 /* PubMedService.swift in Sources */,
 				71BB9CA62D8878FE00B1DF52 /* AppDelegate.swift in Sources */,
 				7123B0432D87B0B500C3FA2A /* SearchBar.swift in Sources */,
+				71E14DFA2D90B6FF00F93BB2 /* My_PubMed_Research_Assistant.xcdatamodeld in Sources */,
 				7123B0452D87B28500C3FA2A /* PubMedSearchResult.swift in Sources */,
 				71BAE3762D86B1B600FF1EB9 /* ContentView.swift in Sources */,
 				71BAE37E2D86B37200FF1EB9 /* PubMedArticleDetails.swift in Sources */,
 				7153246C2D86AFC100CA2F48 /* ArticleStorage.swift in Sources */,
 				7153246A2D86AEDD00CA2F48 /* ArticleDetailView.swift in Sources */,
+<<<<<<< HEAD
 				7123B03F2D87934B00C3FA2A /* PubMedData.xcdatamodeld in Sources */,
 				71BAE3842D86B3D300FF1EB9 /* StoredArticle.swift in Sources */,
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 				719853C12D8DE11A00E36A88 /* CleanTextField.swift in Sources */,
 >>>>>>> 7e8daf8 (v10)
 			);
@@ -378,8 +393,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7123B0402D87934B00C3FA2A /* PubMedData.xcdatamodeld in Sources */,
-				71BAE3782D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,8 +400,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71BAE3792D86B2ED00FF1EB9 /* My_PubMed_Research_AssistantApp.swift in Sources */,
-				7123B0412D87934B00C3FA2A /* PubMedData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,8 +444,12 @@
 				DEVELOPMENT_TEAM = SBRT38UD7A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+<<<<<<< HEAD
 				INFOPLIST_FILE = Info.plist;
 >>>>>>> 7e8daf8 (v10)
+=======
+				INFOPLIST_FILE = "My PubMed Research Assistant/Info.plist";
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 				INFOPLIST_KEY_CFBundleDisplayName = "PubMed Research Assistant";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for research articles.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save articles as PDFs to your device.";
@@ -490,8 +505,12 @@
 				DEVELOPMENT_TEAM = SBRT38UD7A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+<<<<<<< HEAD
 				INFOPLIST_FILE = Info.plist;
 >>>>>>> 7e8daf8 (v10)
+=======
+				INFOPLIST_FILE = "My PubMed Research Assistant/Info.plist";
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 				INFOPLIST_KEY_CFBundleDisplayName = "PubMed Research Assistant";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for research articles.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save articles as PDFs to your device.";
@@ -754,13 +773,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		7123B03D2D87934B00C3FA2A /* PubMedData.xcdatamodeld */ = {
+		71E14DF82D90B6FF00F93BB2 /* My_PubMed_Research_Assistant.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				7123B03E2D87934B00C3FA2A /* PubMedData.xcdatamodel */,
+				71E14DF92D90B6FF00F93BB2 /* My_PubMed_Research_Assistant.xcdatamodel */,
 			);
-			currentVersion = 7123B03E2D87934B00C3FA2A /* PubMedData.xcdatamodel */;
-			path = PubMedData.xcdatamodeld;
+			currentVersion = 71E14DF92D90B6FF00F93BB2 /* My_PubMed_Research_Assistant.xcdatamodel */;
+			path = My_PubMed_Research_Assistant.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

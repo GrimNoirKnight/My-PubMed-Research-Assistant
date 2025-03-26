@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 //  ContentView.swift
 //  My PubMed Research Assistant
 //
@@ -20,89 +21,40 @@ struct ContentView: View {
 }
 =======
 //
+=======
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 //  ContentView.swift
 //  My PubMed Research Assistant
 //
-//  Created by Alan Keizer on 3/21/25.
+//  Created by Alan D. Keizer on March 23, 2025.
+//  © 2025 A. D. Keizer.  All rights reserved.
 //
+//  Description:
+//  Root view that displays the main PubMed search interface.
+//
+//  Version: 00.001.007-alpha  Removed reference to Item / CoreData preview
 
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        NavigationStack {
+            SearchView()
+                .navigationTitle("PubMed Search")
         }
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
 #Preview {
+<<<<<<< HEAD
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
 >>>>>>> cc80264 (Flattened directory structure using rsync)
+=======
+    ContentView()
+        .environment(
+            \.managedObjectContext,
+            ArticleStorage.shared.container.viewContext
+        )
+} 
+>>>>>>> c76a8c2 (Backup before Core Data model change)

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 //
 //  ArticleDetailView.swift
@@ -9,6 +10,8 @@
 
 
 >>>>>>> cc80264 (Flattened directory structure using rsync)
+=======
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 //  ArticleDetailView.swift
 //  My PubMed Research Assistant
 //

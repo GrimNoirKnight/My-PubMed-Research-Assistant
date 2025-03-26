@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 //  PubMedService.swift
 //  My PubMed Research Assistant
 //
@@ -13,6 +14,8 @@
 //
 
 
+=======
+>>>>>>> c76a8c2 (Backup before Core Data model change)
 //  PubMedService.swift
 //  My PubMed Research Assistant
 //

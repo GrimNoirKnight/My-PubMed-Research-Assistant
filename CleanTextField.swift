@@ -1,11 +1,3 @@
-//
-//  CleanTextField.swift
-//  My PubMed Research Assistant
-//
-//  Created by Alan Keizer on 3/21/25.
-//
-
-
 //  CleanTextField.swift
 //  My PubMed Research Assistant
 //
