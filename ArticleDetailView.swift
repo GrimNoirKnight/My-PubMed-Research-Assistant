@@ -51,8 +51,8 @@ struct ArticleDetailView: View {
                         .font(.body)
 =======
 
-                if let abstract = article.abstract, !abstract.isEmpty {
-                    Text(abstract)
+                if !article.abstract.isEmpty { //Corrected line
+                    Text(article.abstract) //Corrected line
                         .font(.body)
                 } else {
                     Text("No abstract available")

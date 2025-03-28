@@ -1,4 +1,3 @@
-//
 //  StoredArticle+CoreDataClass.swift
 //  My PubMed Research Assistant
 //

@@ -20,8 +20,12 @@
 //  My PubMed Research Assistant
 //
 //  Description: Search screen and user entry point.
+<<<<<<< HEAD
 //  Version: 0.6.15-alpha
 >>>>>>> cc80264 (Flattened directory structure using rsync)
+=======
+//  Version: 0.6.16-alpha
+>>>>>>> 2ce2e06 (chore: snapshot project tree 2025-03-27)
 
 import SwiftUI
 
@@ -32,9 +36,12 @@ struct SearchView: View {
     @State private var searchQuery: String = "Myelin THC"
 >>>>>>> cc80264 (Flattened directory structure using rsync)
     @State private var isSearching = false
+    @State private var searchResults: [PubMedArticle] = []
+    @State private var errorMessage: String?
     @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
+<<<<<<< HEAD
 <<<<<<< HEAD
         VStack {
             // Title
@@ -87,6 +94,9 @@ struct SearchView: View {
         // Simulate search delay (replace with actual API call)
 =======
         ScrollView {
+=======
+        NavigationStack {
+>>>>>>> 2ce2e06 (chore: snapshot project tree 2025-03-27)
             VStack(alignment: .leading, spacing: 16) {
                 Text("PubMed Search")
                     .font(.title)
@@ -122,24 +132,66 @@ struct SearchView: View {
                     ProgressView("Searching...")
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
+                } else if let errorMessage = errorMessage {
+                    Text("❌ \(errorMessage)")
+                        .foregroundColor(.red)
+                        .padding()
+                } else if searchResults.isEmpty {
+                    Text("No results found.")
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    List(searchResults, id: \.pmid) { article in
+                        NavigationLink(destination: ArticleDetailView(article: article)) {
+                            VStack(alignment: .leading) {
+                                Text(article.title)
+                                    .font(.headline)
+                                if let authors = article.authors {
+                                    Text(authors.joined(separator: ", "))
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                    }
+                    .listStyle(.plain)
                 }
 
                 Spacer()
             }
             .padding()
             .onTapGesture { isTextFieldFocused = false }
+            .background(Color.white)
+            .foregroundColor(Color(red: 0.235, green: 0.231, blue: 0.431))
+            .font(.custom("Arial", size: 12))
+            .ignoresSafeArea(.keyboard, edges: .bottom)
         }
-        .background(Color.white)
-        .foregroundColor(Color(red: 0.235, green: 0.231, blue: 0.431))
-        .font(.custom("Arial", size: 12))
-        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 
     private func performSearch() {
         isSearching = true
+<<<<<<< HEAD
 >>>>>>> cc80264 (Flattened directory structure using rsync)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             isSearching = false
+=======
+        errorMessage = nil
+        searchResults = []
+
+        Task {
+            do {
+                let results = try await PubMedService().searchArticlesAsync(query: searchQuery)
+                await MainActor.run {
+                    self.searchResults = results
+                    self.isSearching = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = "Search failed: \(error.localizedDescription)"
+                    self.isSearching = false
+                }
+            }
+>>>>>>> 2ce2e06 (chore: snapshot project tree 2025-03-27)
         }
     }
 }

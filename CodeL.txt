@@ -61,21 +61,53 @@ struct ArticleDetailView: View {
 }
 
 
+//
 //  ArticleStorage.swift
 //  My PubMed Research Assistant
 //
-//  Description: Manages storing and retrieving PubMed articles from CoreData.
-//  Version: 0.1.3-alpha
+//  Created by Alan D. Keizer
+//  © 2025 A. D. Keizer. All rights reserved.
+//
+//  Description:
+//  Manages storing and retrieving PubMed articles from Core Data.
+//  Responsible for syncing PubMedArticle structs with the StoredArticle
+//  entity in the Core Data stack.
+//
+//  Version: 00.001.023-alpha
+//
+// Attribute Name          Type      Optional        Notes
+// -----------------------+---------+---------------+-----------------------------------------------
+// abstract                String    No              Abstract text
+// affiliations            String    Yes             Author affiliations
+// authors                 String    Yes             List of authors (comma-separated)
+// conflictOfInterest      String    Yes             Conflict of interest statement
+// dateSaved               Date      No              When article was saved
+// doi                     String    Yes             Digital Object Identifier
+// fullTextAvailable       Boolean   No              True/False flag
+// funding                 String    Yes             Funding sources
+// issue                   String    Yes             Issue number
+// journal                 String    Yes             Journal name
+// keywords                String    Yes             Keywords (comma-separated)
+// meSHterms               String    Yes             Medical Subject Headings (comma-separated)
+// pages                   String    Yes             Page numbers
+// pmcid                   String    Yes             Optional identifier
+// pmid                    String    No              Primary identifier
+// pubDate                 Date      Yes             Publication date
+// title                   String    No              Article title
+// volume                  String    Yes             Volume number
+// webLink                 String    Yes             Link to article
 
 import Foundation
-import CoreData
+import CoreData  // Needed to interact with Core Data entities and context
 
+// Singleton class to handle Core Data persistence
 class ArticleStorage {
-    static let shared = ArticleStorage()
-    let container: NSPersistentContainer
+    static let shared = ArticleStorage() // Singleton instance
+    let container: NSPersistentContainer // The persistent store container
 
+    // Initialize Core Data container
     private init() {
-        container = NSPersistentContainer(name: "PubMedData")
+        container = NSPersistentContainer(name: "My_PubMed_Research_Assistant") // Matches xcdatamodeld name
         container.loadPersistentStores { desc, error in
             if let error = error {
                 print("❌ CoreData Load Failed: \(error.localizedDescription)")
@@ -85,43 +117,49 @@ class ArticleStorage {
         }
     }
 
+    // Save array of PubMedArticle structs into Core Data
     func saveArticles(_ articles: [PubMedArticle]) {
         let context = container.newBackgroundContext()
         context.perform {
             for article in articles {
-                let fetch: NSFetchRequest<StoredArticle> = StoredArticle.fetchRequest()
-                fetch.predicate = NSPredicate(format: "pmid == %@", article.pmid)
+                let pmid = article.pmid
 
+                let fetch: NSFetchRequest<StoredArticle> = StoredArticle.fetchRequest()
+                fetch.predicate = NSPredicate(format: "pmid == %@", pmid)
+
+            
                 do {
                     let results = try context.fetch(fetch)
                     let stored = results.first ?? StoredArticle(context: context)
 
-                    stored.pmid = article.pmid
-                    stored.pmcid = article.pmcid
-                    stored.doi = article.doi
-                    stored.title = article.title
-                    stored.abstract = article.abstract
-                    stored.webLink = article.webLink
-                    stored.authors = article.authors?.joined(separator: ", ")
-                    stored.affiliations = article.affiliations?.joined(separator: "; ")
-                    stored.keywords = article.keywords?.joined(separator: ", ")
-                    stored.journal = article.journal
-                    stored.pubDate = article.pubDate
-                    stored.volume = article.volume
-                    stored.issue = article.issue
-                    stored.pages = article.pages
-                    stored.meSHterms = article.meSHterms?.joined(separator: ", ")
-                    stored.funding = article.funding?.joined(separator: "; ")
-                    stored.conflictOfInterest = article.conflictOfInterest
-                    stored.fullTextAvailable = article.fullTextAvailable
-                    stored.dateSaved = Date()
+                    // Assign values to Core Data entity (alphabetical order with comments)
+                    stored.abstract = article.abstract                                             // Required string.
+                    stored.affiliations = article.affiliations?.joined(separator: "; ")            // Optional string.
+                    stored.authors = article.authors?.joined(separator: ", ")                      // Optional string.
+                    stored.conflictOfInterest = article.conflictOfInterest                         // Optional string.
+                    stored.dateSaved = Date()                                                      // Optional date.
+                    stored.doi = article.doi                                                       // Optional string.
+                    stored.fullTextAvailable = article.fullTextAvailable                           // Required Bool.
+                    stored.funding = article.funding?.joined(separator: "; ")                      // Optional string.
+                    stored.issue = article.issue                                                   // Optional string.
+                    stored.journal = article.journal                                               // Optional string.
+                    stored.keywords = article.keywords?.joined(separator: ", ")                    // Optional string.
+                    stored.meSHterms = article.meSHterms?.joined(separator: ", ")                  // Optional string.
+                    stored.pages = article.pages                                                   // Optional string.
+                    stored.pmcid = article.pmcid                                                   // Optional string.
+                    stored.pmid = article.pmid                                                     // Required string.
+                    stored.pubDate = article.pubDate                                               // Required date.
+                    stored.title = article.title                                                   // Required string.
+                    stored.volume = article.volume                                                 // Optional string.
+                    stored.webLink = article.webLink                                               // Optional string.
+
                 } catch {
                     print("❌ Error fetching existing article: \(error)")
                 }
             }
 
             do {
-                try context.save()
+                try context.save() // Commit all changes to disk
                 print("🟢 Articles saved to CoreData.")
             } catch {
                 print("❌ Failed to save articles: \(error)")
@@ -129,38 +167,64 @@ class ArticleStorage {
         }
     }
 
+    // Load saved articles, converting them back to PubMedArticle structs
     func loadCachedArticles(for query: String) -> [PubMedArticle] {
         let context = container.viewContext
         let fetch: NSFetchRequest<StoredArticle> = StoredArticle.fetchRequest()
 
         do {
             let stored = try context.fetch(fetch)
-            return stored.map { obj in
-                PubMedArticle(
-                    pmid: obj.pmid,
-                    pmcid: obj.pmcid,
-                    doi: obj.doi,
-                    title: obj.title,
-                    abstract: obj.abstract ?? "",
-                    webLink: obj.webLink ?? "",
-                    authors: obj.authors?.components(separatedBy: ", "),
-                    affiliations: obj.affiliations?.components(separatedBy: "; "),
-                    keywords: obj.keywords?.components(separatedBy: ", "),
-                    journal: obj.journal,
-                    pubDate: obj.pubDate,
-                    volume: obj.volume,
-                    issue: obj.issue,
-                    pages: obj.pages,
-                    meSHterms: obj.meSHterms?.components(separatedBy: ", "),
-                    funding: obj.funding?.components(separatedBy: "; "),
-                    conflictOfInterest: obj.conflictOfInterest,
-                    fullTextAvailable: obj.fullTextAvailable
-                )
-            }
+            return stored.map { self.convertStoredToPubMedArticle($0) }
         } catch {
             print("❌ Load failed: \(error)")
             return []
         }
+    }
+
+    // Convert StoredArticle to PubMedArticle with safe default values
+    private func convertStoredToPubMedArticle(_ obj: StoredArticle) -> PubMedArticle {
+        // Break long chained expression for compiler stability
+        let abstract = obj.abstract // Corrected line                                              // Required string.
+        let affiliations = obj.affiliations?.components(separatedBy: "; ") ?? ["N/A"]              // Optional string.
+        let authors = obj.authors?.components(separatedBy: ", ") ?? ["Unknown Author"]             // Optional string.
+        let conflictOfInterest = obj.conflictOfInterest                                            // Optional string.
+        let dateSaved = obj.dateSaved                                                              // Optional date.
+        let doi = obj.doi ?? ""                                                                    // Optional string.
+        let fullTextAvailable = obj.fullTextAvailable                                              // Required Bool.
+        let funding = obj.funding?.components(separatedBy: "; ") ?? ["Not disclosed"]              // Optional string.
+        let issue = obj.issue                                                                      // Optional string.
+        let journal = obj.journal                                                                  // Optional string.
+        let keywords = obj.keywords?.components(separatedBy: ", ") ?? ["None"]                     // Optional string.
+        let meSHterms = obj.meSHterms?.components(separatedBy: ", ") ?? ["None"]                   // Optional string.
+        let pages = obj.pages                                                                      // Optional string.
+        let pmcid = obj.pmcid ?? ""                                                                // Optional string.
+        let pmid = obj.pmid                                                                        // Required string.
+        let pubDate = obj.pubDate                                                                  // Required date.
+        let title = obj.title                                                                      // Required string.
+        let volume = obj.volume                                                                    // Optional string.
+        let webLink = obj.webLink                                                                  // Optional string.
+
+        return PubMedArticle(
+            abstract: abstract,                                                                    // Required string.
+            affiliations: affiliations,                                                            // Optional string.
+            authors: authors,                                                                      // Optional string.
+            conflictOfInterest: conflictOfInterest,                                                // Optional string.
+            dateSaved: dateSaved,                                                                  // Optional date.
+            doi: doi,                                                                              // Optional string.
+            fullTextAvailable: fullTextAvailable,                                                  // Required Bool.
+            funding: funding,                                                                      // Optional string.
+            issue: issue,                                                                          // Optional string.
+            journal: journal,                                                                      // Optional string.
+            keywords: keywords,                                                                    // Optional string.
+            meSHterms: meSHterms,                                                                  // Optional string.
+            pages: pages,                                                                          // Optional string.
+            pmcid: pmcid,                                                                          // Optional string.
+            pmid: pmid,                                                                            // Required string.
+            pubDate: pubDate,                                                                      // Required date.
+            title: title,                                                                          // Required string.
+            volume: volume,                                                                        // Optional string.
+            webLink: webLink                                                                       // Optional string.
+        )
     }
 }
 
@@ -353,35 +417,65 @@ struct PersistenceController {
 }
 
 
+//
 //  PubMedArticle.swift
 //  My PubMed Research Assistant
 //
-//  Description: Model representing a PubMed article.
-//  Version: 0.1.1-alpha
+//  Created by Alan D. Keizer
+//  © 2025 A. D. Keizer. All rights reserved.
+//
+//  Description:
+//  Struct representing a PubMed article in memory.
+//  Used for decoding, displaying, and saving to Core Data.
+//
+//  Version: 00.001.002-alpha
+//
+// Attribute Name          Type      Optional        Notes
+// -----------------------+---------+---------------+-----------------------------------------------
+// abstract                String    No              Abstract text
+// affiliations            String    Yes             Author affiliations
+// authors                 String    Yes             List of authors (comma-separated)
+// conflictOfInterest      String    Yes             Conflict of interest statement
+// dateSaved               Date      No              When article was saved
+// doi                     String    Yes             Digital Object Identifier
+// fullTextAvailable       Boolean   No              True/False flag
+// funding                 String    Yes             Funding sources
+// issue                   String    Yes             Issue number
+// journal                 String    Yes             Journal name
+// keywords                String    Yes             Keywords (comma-separated)
+// meSHterms               String    Yes             Medical Subject Headings (comma-separated)
+// pages                   String    Yes             Page numbers
+// pmcid                   String    Yes             Optional identifier
+// pmid                    String    No              Primary identifier
+// pubDate                 Date      Yes             Publication date
+// title                   String    No              Article title
+// volume                  String    Yes             Volume number
+// webLink                 String    Yes             Link to article
 
 import Foundation
 
-struct PubMedArticle: Codable, Identifiable {
-    var id: String { pmid }
+struct PubMedArticle {
+    // MARK: - Attributes (Alphabetically Sorted)
 
-    var pmid: String
-    var pmcid: String?
-    var doi: String?
-    var title: String
-    var abstract: String?
-    var webLink: String?
-    var authors: [String]?
-    var affiliations: [String]?
-    var keywords: [String]?
-    var journal: String?
-    var pubDate: Date?
-    var volume: String?
-    var issue: String?
-    var pages: String?
-    var meSHterms: [String]?
-    var funding: [String]?
-    var conflictOfInterest: String?
-    var fullTextAvailable: Bool
+    var abstract: String                                                                           // Required string.
+    var affiliations: [String]?                                                                    // Optional string.
+    var authors: [String]?                                                                         // Optional string.
+    var conflictOfInterest: String?                                                                // Optional string.
+    var dateSaved: Date                                                                            // Optional date.  
+    var doi: String?                                                                               // Optional string.
+    var fullTextAvailable: Bool                                                                    // Required Bool.  
+    var funding: [String]?                                                                         // Optional string.
+    var issue: String?                                                                             // Optional string.
+    var journal: String?                                                                           // Optional string.
+    var keywords: [String]?                                                                        // Optional string.
+    var meSHterms: [String]?                                                                       // Optional string.
+    var pages: String?                                                                             // Optional string.
+    var pmcid: String?                                                                             // Optional string.
+    var pmid: String                                                                               // Required string.
+    var pubDate: Date?                                                                             // Required date.  
+    var title: String                                                                              // Required string.
+    var volume: String?                                                                            // Optional string.
+    var webLink: String?                                                                           // Optional string.
 }
 
 
@@ -437,61 +531,136 @@ struct PubMedSearchResult: Codable {
 //  PubMedService.swift
 //  My PubMed Research Assistant
 //
-//  Description: Fetches article summaries from PubMed APIs.
-//  Version: 0.3.9-alpha
+//  Created by Alan D. Keizer
+//  © 2025 A. D. Keizer. All rights reserved.
+//
+//  Description:
+//  Fetches article summaries from PubMed APIs.
+//  Converts raw API results into structured PubMedArticle structs.
+//
+//  Version: 00.003.014-alpha
+//
+//  Change Log:
+//  - Fixed decoding bug: replaced deprecated `uid` with `pmid` (decoded from JSON "uid")
+//  - All article identifiers now consistently handled using `StringOrInt`
+//  - Ensured stable decoding and formatting for robust parsing
+//
+// Attribute Name          Type      Optional        Notes
+// -----------------------+---------+---------------+-----------------------------------------------
+// abstract                String    No              Abstract text
+// affiliations            String    Yes             Author affiliations
+// authors                 String    Yes             List of authors (comma-separated)
+// conflictOfInterest      String    Yes             Conflict of interest statement
+// dateSaved               Date      No              When article was saved
+// doi                     String    Yes             Digital Object Identifier
+// fullTextAvailable       Boolean   No              True/False flag
+// funding                 String    Yes             Funding sources
+// issue                   String    Yes             Issue number
+// journal                 String    Yes             Journal name
+// keywords                String    Yes             Keywords (comma-separated)
+// meSHterms               String    Yes             Medical Subject Headings (comma-separated)
+// pages                   String    Yes             Page numbers
+// pmcid                   String    Yes             Optional identifier
+// pmid                    String    No              Primary identifier
+// pubDate                 Date      Yes             Publication date
+// title                   String    No              Article title
+// volume                  String    Yes             Volume number
+// webLink                 String    Yes             Link to article
 
 import Foundation
 
 class PubMedService {
-    private let baseURL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id="
+    private let searchBaseURL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&term="
+    private let summaryBaseURL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id="
 
+    // Retry-capable fetch for resilience
+    private func fetchData(from url: URL, retries: Int = 3) async throws -> (Data, URLResponse) {
+        for attempt in 1...retries {
+            do {
+                print("🌐 Attempt \(attempt): Fetching \(url.absoluteString)")
+                let (data, response) = try await URLSession.shared.data(from: url)
+                return (data, response)
+            } catch {
+                print("⚠️ Attempt \(attempt) failed: \(error.localizedDescription)")
+                if attempt == retries { throw error }
+                try await Task.sleep(nanoseconds: 500_000_000) // Wait 0.5s before retry
+            }
+        }
+        throw URLError(.cannotLoadFromNetwork)
+    }
+
+    // Asynchronous article search + summary fetch
     func searchArticlesAsync(query: String) async throws -> [PubMedArticle] {
-        guard let url = URL(string: baseURL + query) else {
+        // STEP 1: Search article IDs
+        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        guard let searchURL = URL(string: searchBaseURL + encodedQuery) else {
             throw URLError(.badURL)
         }
 
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 20
-        config.timeoutIntervalForResource = 30
-
-        let (data, response) = try await URLSession(configuration: config).data(from: url)
-
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+        let (searchData, searchResponse) = try await fetchData(from: searchURL)
+        guard (searchResponse as? HTTPURLResponse)?.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
 
+        print("✅ Search completed")
+        let idResult = try JSONDecoder().decode(PubMedSearchResult.self, from: searchData)
+        guard let ids = idResult.esearchresult?.idlist, !ids.isEmpty else {
+            print("⚠️ No article IDs found.")
+            return []
+        }
+
+        // STEP 2: Fetch summary details
+        let idString = ids.joined(separator: ",")
+        guard let summaryURL = URL(string: summaryBaseURL + idString) else {
+            throw URLError(.badURL)
+        }
+
+        let (summaryData, summaryResponse) = try await fetchData(from: summaryURL)
+        guard (summaryResponse as? HTTPURLResponse)?.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+
+        print("✅ Summary data fetched")
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(PubMedArticleDetails.self, from: summaryData)
 
-        let result = try decoder.decode(PubMedArticleDetails.self, from: data)
+        // STEP 3: Convert result map to PubMedArticle structs
+        let validArticles = ids.compactMap { id -> PubMedArticle? in
+            guard let detail = result.result[id] else { return nil }
 
-        return result.result.values.map { detail in
-            PubMedArticle(
-                pmid: detail.uid,
-                pmcid: detail.pmcid,
-                doi: detail.doi,
-                title: detail.title,
-                abstract: detail.abstract ?? "",
-                webLink: detail.webLink ?? "",
-                authors: detail.authors?.compactMap { $0.name },
-                journal: detail.journal,
-                pubDate: convertToDate(detail.pubdate),
-                volume: detail.volume,
-                issue: detail.issue,
-                pages: detail.pages,
-                meSHterms: nil,
-                funding: nil,
-                conflictOfInterest: nil,
-                fullTextAvailable: false
+            return PubMedArticle(
+                abstract: detail.abstract ?? "",                                                    // Required string
+                affiliations: nil,                                                                  // Optional string
+                authors: detail.authors?.compactMap { $0.name },                                    // Optional string
+                conflictOfInterest: nil,                                                            // Optional string
+                dateSaved: Date(),                                                                  // Required date
+                doi: detail.doi,                                                                    // Optional string
+                fullTextAvailable: false,                                                           // Required Bool
+                funding: nil,                                                                       // Optional string
+                issue: detail.issue,                                                                // Optional string
+                journal: detail.journal,                                                            // Optional string
+                keywords: nil,                                                                      // Optional string
+                meSHterms: nil,                                                                     // Optional string
+                pages: detail.pages,                                                                // Optional string
+                pmcid: detail.pmcid,                                                                // Optional string
+                pmid: detail.pmid.stringValue,                                                      // ✅ Corrected reference
+                pubDate: convertToDate(detail.pubdate),                                             // Optional date
+                title: detail.title,                                                                // Required string
+                volume: detail.volume,                                                              // Optional string
+                webLink: detail.webLink                                                             // Optional string
             )
         }
+
+        return validArticles
     }
 
+    // Converts string like "2024 Mar" to Date
     private func convertToDate(_ str: String?) -> Date? {
         guard let str = str else { return nil }
-        let fmt = DateFormatter()
-        fmt.dateFormat = "yyyy MMM"
-        return fmt.date(from: str)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy MMM"
+        return formatter.date(from: str)
     }
 }
 
@@ -534,17 +703,19 @@ struct SearchBar: View {
 //  My PubMed Research Assistant
 //
 //  Description: Search screen and user entry point.
-//  Version: 0.6.15-alpha
+//  Version: 0.6.16-alpha
 
 import SwiftUI
 
 struct SearchView: View {
     @State private var searchQuery: String = "Myelin THC"
     @State private var isSearching = false
+    @State private var searchResults: [PubMedArticle] = []
+    @State private var errorMessage: String?
     @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
-        ScrollView {
+        NavigationStack {
             VStack(alignment: .leading, spacing: 16) {
                 Text("PubMed Search")
                     .font(.title)
@@ -580,26 +751,149 @@ struct SearchView: View {
                     ProgressView("Searching...")
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
+                } else if let errorMessage = errorMessage {
+                    Text("❌ \(errorMessage)")
+                        .foregroundColor(.red)
+                        .padding()
+                } else if searchResults.isEmpty {
+                    Text("No results found.")
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    List(searchResults, id: \.pmid) { article in
+                        NavigationLink(destination: ArticleDetailView(article: article)) {
+                            VStack(alignment: .leading) {
+                                Text(article.title)
+                                    .font(.headline)
+                                if let authors = article.authors {
+                                    Text(authors.joined(separator: ", "))
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                    }
+                    .listStyle(.plain)
                 }
 
                 Spacer()
             }
             .padding()
             .onTapGesture { isTextFieldFocused = false }
+            .background(Color.white)
+            .foregroundColor(Color(red: 0.235, green: 0.231, blue: 0.431))
+            .font(.custom("Arial", size: 12))
+            .ignoresSafeArea(.keyboard, edges: .bottom)
         }
-        .background(Color.white)
-        .foregroundColor(Color(red: 0.235, green: 0.231, blue: 0.431))
-        .font(.custom("Arial", size: 12))
-        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 
     private func performSearch() {
         isSearching = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            isSearching = false
+        errorMessage = nil
+        searchResults = []
+
+        Task {
+            do {
+                let results = try await PubMedService().searchArticlesAsync(query: searchQuery)
+                await MainActor.run {
+                    self.searchResults = results
+                    self.isSearching = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = "Search failed: \(error.localizedDescription)"
+                    self.isSearching = false
+                }
+            }
         }
     }
 }
+
+
+//
+//  StoredArticle+CoreDataClass.swift
+//  My PubMed Research Assistant
+//
+//  Created by Alan Keizer on 3/23/25.
+//
+//
+
+import Foundation
+import CoreData
+
+
+public class StoredArticle: NSManagedObject {
+
+}
+
+
+//
+//  StoredArticle+CoreDataProperties.swift
+//  My PubMed Research Assistant
+//
+//  Created by Alan Keizer on March 23, 2025.
+//  © 2025 A. D. Keizer. All rights reserved.
+//
+//  Description:
+//  This extension defines the properties of the `StoredArticle` Core Data entity.
+//  It includes article metadata fetched from PubMed and saved by the user.
+//
+//  Version: 00.000.002-alpha
+//
+// Attribute Name          Type      Optional        Notes
+// -----------------------+---------+---------------+-----------------------------------------------
+// abstract                String    No              Abstract text
+// affiliations            String    Yes             Author affiliations
+// authors                 String    Yes             List of authors (comma-separated)
+// conflictOfInterest      String    Yes             Conflict of interest statement
+// dateSaved               Date      No              When article was saved
+// doi                     String    Yes             Digital Object Identifier
+// fullTextAvailable       Boolean   No              True/False flag
+// funding                 String    Yes             Funding sources
+// issue                   String    Yes             Issue number
+// journal                 String    Yes             Journal name
+// keywords                String    Yes             Keywords (comma-separated)
+// meSHterms               String    Yes             Medical Subject Headings (comma-separated)
+// pages                   String    Yes             Page numbers
+// pmcid                   String    Yes             Optional identifier
+// pmid                    String    No              Primary identifier
+// pubDate                 Date      Yes             Publication date
+// title                   String    No              Article title
+// volume                  String    Yes             Volume number
+// webLink                 String    Yes             Link to article
+
+import Foundation
+import CoreData
+
+extension StoredArticle {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<StoredArticle> {
+        return NSFetchRequest<StoredArticle>(entityName: "StoredArticle")
+    }
+
+    @NSManaged public var abstract: String                                                         // Required string.
+    @NSManaged public var affiliations: String?                                                    // Optional string.
+    @NSManaged public var authors: String?                                                         // Optional string.
+    @NSManaged public var conflictOfInterest: String?                                              // Optional string.
+    @NSManaged public var dateSaved: Date                                                          // Required date.
+    @NSManaged public var doi: String?                                                             // Optional string.
+    @NSManaged public var fullTextAvailable: Bool                                                  // Required Bool.
+    @NSManaged public var funding: String?                                                         // Optional string.
+    @NSManaged public var issue: String?                                                           // Optional string.
+    @NSManaged public var journal: String?                                                         // Optional string.
+    @NSManaged public var keywords: String?                                                        // Optional string.
+    @NSManaged public var meSHterms: String?                                                       // Optional string.
+    @NSManaged public var pages: String?                                                           // Optional string.
+    @NSManaged public var pmcid: String?                                                           // Optional string.
+    @NSManaged public var pmid: String                                                             // Required string.
+    @NSManaged public var pubDate: Date?                                                           // Optional date.
+    @NSManaged public var title: String                                                            // Required string.
+    @NSManaged public var volume: String?                                                          // Optional string.
+    @NSManaged public var webLink: String?                                                         // Optional string.
+}
+
+extension StoredArticle: Identifiable { }
+
 
 
 <?xml version="1.0" encoding="UTF-8"?>

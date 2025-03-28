@@ -445,11 +445,15 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 <<<<<<< HEAD
+<<<<<<< HEAD
 				INFOPLIST_FILE = Info.plist;
 >>>>>>> 7e8daf8 (v10)
 =======
 				INFOPLIST_FILE = "My PubMed Research Assistant/Info.plist";
 >>>>>>> c76a8c2 (Backup before Core Data model change)
+=======
+				INFOPLIST_FILE = Info.plist;
+>>>>>>> 2ce2e06 (chore: snapshot project tree 2025-03-27)
 				INFOPLIST_KEY_CFBundleDisplayName = "PubMed Research Assistant";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for research articles.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save articles as PDFs to your device.";
@@ -506,11 +510,15 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 <<<<<<< HEAD
+<<<<<<< HEAD
 				INFOPLIST_FILE = Info.plist;
 >>>>>>> 7e8daf8 (v10)
 =======
 				INFOPLIST_FILE = "My PubMed Research Assistant/Info.plist";
 >>>>>>> c76a8c2 (Backup before Core Data model change)
+=======
+				INFOPLIST_FILE = Info.plist;
+>>>>>>> 2ce2e06 (chore: snapshot project tree 2025-03-27)
 				INFOPLIST_KEY_CFBundleDisplayName = "PubMed Research Assistant";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR codes for research articles.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save articles as PDFs to your device.";
